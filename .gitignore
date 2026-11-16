@@ -1,0 +1,15 @@
+# результаты сборки
+dev/
+novyi-sait/
+# обращения из формы и служебные файлы сервера
+_data/*.csv
+_data/*.log
+_data/rl_*
+.DS_Store
+Thumbs.db
+node_modules/
+# побочные страницы, которые сборщик кабинета создаёт для старого адреса a-nas.ru/sasha (сайту не нужны)
+ishodniki/a-nas.ru/sasha/*
+!ishodniki/a-nas.ru/sasha/index.html
+!ishodniki/a-nas.ru/sasha/img/
+!ishodniki/a-nas.ru/sasha/neurogame/

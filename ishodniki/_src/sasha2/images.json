@@ -1,0 +1,39 @@
+[
+ {
+  "name": "hero",
+  "widths": [
+   1600,
+   900
+  ],
+  "url": "https://d8j0ntlcm91z4.cloudfront.net/user_39hHNq3ejMg0YQhPOSmhgcgsI0v/hf_20261115_142310_b63e20e4-9982-42b2-b852-ae5fb803e70b.png"
+ },
+ {
+  "name": "band",
+  "widths": [
+   1600,
+   900
+  ],
+  "url": "https://d8j0ntlcm91z4.cloudfront.net/user_39hHNq3ejMg0YQhPOSmhgcgsI0v/hf_20261115_142343_69b936c1-e4a0-4a0b-bc19-3e869a863713.png"
+ },
+ {
+  "name": "v-t1",
+  "widths": [
+   1600,
+   900
+  ],
+  "url": "https://d8j0ntlcm91z4.cloudfront.net/user_39hHNq3ejMg0YQhPOSmhgcgsI0v/hf_20261115_145443_0d561300-b222-4735-882d-9117851146d2.png",
+  "title": "тёмный: кабинет, серверный зал, цифровая сеть",
+  "cover": true,
+  "dark": true
+ },
+ {
+  "name": "v-s1",
+  "widths": [
+   1600,
+   900
+  ],
+  "url": "https://d8j0ntlcm91z4.cloudfront.net/user_39hHNq3ejMg0YQhPOSmhgcgsI0v/hf_20261115_145619_64003e81-5c16-4700-a6c2-9c8ec4f94bd4.png",
+  "variant": "1",
+  "title": "светлый: кабинет, серверный зал, цифровая сеть"
+ }
+]

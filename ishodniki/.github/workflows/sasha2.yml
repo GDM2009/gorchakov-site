@@ -1,0 +1,45 @@
+name: sasha2
+# Классическая версия сайта a-nas.ru/sasha2: пересобирается сама, когда меняются статьи,
+# тексты действующего сайта или её собственные исходники, а также после того как sasha-blog сожмёт картинки новых статей.
+on:
+  push:
+    branches: [main]
+    paths:
+      - '_src/sasha/blog/**'
+      - '_src/sasha/index.html'
+      - '_src/sasha/build.js'
+      - '_src/sasha2/**'
+      - 'a-nas.ru/sasha/index.html'
+      - 'a-nas.ru/sasha/neurogame/**'
+      - 'a-nas.ru/sasha/img/**'
+      - '.github/workflows/sasha2.yml'
+  workflow_run:
+    workflows: [sasha-blog]
+    types: [completed]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: sasha2
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main}
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install pillow
+      # графика из Higgsfield: скачать исходники и положить сжатые копии в репозиторий
+      - run: python _src/sasha2/tools.py images
+      - run: node _src/sasha2/build.js
+      - id: commit
+        run: |
+          git config user.name "sasha2 bot"
+          git config user.email "bot@a-nas.ru"
+          git add a-nas.ru/sasha2 _src/sasha2/g
+          if git diff --cached --quiet; then echo "no changes"; else git commit -m "a-nas.ru/sasha2: пересборка классической версии [skip ci]" && git pull --rebase origin main && git push && echo "changed=1" >> "$GITHUB_OUTPUT"; fi
+      # сервер забирает изменения раз в несколько минут: ждём и сообщаем Яндексу и Bing о страницах (IndexNow)
+      - if: steps.commit.outputs.changed == '1' || github.event_name == 'workflow_dispatch'
+        run: sleep 420 && python _src/sasha2/tools.py ping

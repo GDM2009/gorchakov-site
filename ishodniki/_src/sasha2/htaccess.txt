@@ -1,0 +1,25 @@
+Options -Indexes
+ErrorDocument 404 {{P}}/404.html
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/xml application/rss+xml image/svg+xml application/javascript
+  # код и модели «Нейрогонки» при передаче сжимаются в 2–3 раза
+  AddOutputFilterByType DEFLATE text/javascript application/json application/wasm application/octet-stream model/gltf-binary
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(xml|txt)$">
+    Header set Cache-Control "max-age=600"
+  </FilesMatch>
+  # Картинки хранятся сутки; файл стилей меняет имя при каждом изменении, поэтому его можно хранить год.
+  <FilesMatch "\.(png|jpg|webp|svg)$">
+    Header set Cache-Control "public, max-age=86400"
+  </FilesMatch>
+  # файлы игры: час, затем браузер сверяется с сервером (при сутках посетители долго видели старые модели)
+  <FilesMatch "\.(js|wasm|glb|ktx|mp3|woff2)$">
+    Header set Cache-Control "public, max-age=3600, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.css$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>

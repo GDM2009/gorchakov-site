@@ -1,0 +1,12 @@
+{
+  "name": "gorchakov-site",
+  "private": true,
+  "description": "Сайт Александра Горчакова: исходники и сборщик статического сайта",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "build:local": "node tools/build.js",
+    "serve": "node tools/serve.js dev 8080",
+    "dev": "node tools/build.js && node tools/serve.js dev 8080",
+    "build": "node tools/build.js"
+  }
+}
