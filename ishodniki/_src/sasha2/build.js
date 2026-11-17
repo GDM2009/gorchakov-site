@@ -113,7 +113,7 @@ fs.mkdirSync(path.join(OUT, 'assets'), { recursive: true });
 fs.writeFileSync(path.join(OUT, 'assets', cssName), css);
 for (const f of fs.readdirSync(path.join(SRC, 'static'))) fs.copyFileSync(path.join(SRC, 'static', f), path.join(OUT, 'assets', f));
 fs.writeFileSync(path.join(OUT, '.htaccess'), fs.readFileSync(path.join(SRC, 'htaccess.txt'), 'utf8').split('{{P}}').join(P));
-fs.writeFileSync(path.join(OUT, 'send.php'), fs.readFileSync(path.join(SRC, 'send.php.txt'), 'utf8').replace('{{MAIL_TO}}', CONTACTS.email).split('{{SITE}}').join(HOST + P).split('{{HOST}}').join(HOST.replace(/^www\./, '')));
+// форма обратной связи убрана по просьбе владельца 17.11.2026, send.php больше не создаётся
 // сайт в корне домена: свой robots.txt (в подпапке он не нужен, поисковики читают его только из корня)
 if (P === '') fs.writeFileSync(path.join(OUT, 'robots.txt'), 'User-agent: *\nAllow: /\nDisallow: /_data/\n\nSitemap: ' + BASE + '/sitemap.xml\n');
 fs.mkdirSync(path.join(OUT, '_data'), { recursive: true });
@@ -176,8 +176,7 @@ ${body}
 <nav class="foot-nav" aria-label="Дополнительно"><a target="_blank" rel="noopener" href="${CABINET}">3D-кабинет</a><a target="_blank" rel="noopener" href="${GAME}">Игра «Нейрогонка»</a></nav>
 </div><div class="wrap foot-copy">© ${new Date().getFullYear()} ${esc(AUTHOR)}</div></footer>
 <script>(function(){var b=document.querySelector('.burger'),n=document.getElementById('nav');if(b)b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o)});
-[].forEach.call(document.querySelectorAll('form.cform'),function(f){var s=f.querySelector('.cform-st'),bt=f.querySelector('button');f.page.value=location.pathname;f.addEventListener('submit',function(e){e.preventDefault();bt.disabled=true;s.className='cform-st';s.textContent='Отправляем…';
-fetch(f.action,{method:'POST',body:new FormData(f)}).then(function(r){return r.text().then(function(t){if(r.ok&&(t==='ok'||/"success":\s*"?true/.test(t))){f.reset();f.page.value=location.pathname;s.className='cform-st ok';s.textContent='Сообщение отправлено. Александр ответит по указанному контакту.'}else throw new Error(r.status==429?'limit':t)})}).catch(function(er){s.className='cform-st err';s.textContent=er.message==='limit'?'Слишком много сообщений подряд. Попробуйте через 10 минут.':'Не удалось отправить. ${TEL ? 'Позвоните: ' + CONTACTS.phone + (CONTACTS.email ? ' или напишите на ' + CONTACTS.email : '') + '.' : 'Попробуйте ещё раз позже.'}'}).then(function(){bt.disabled=false})})})})()</script>${LIVE && METRIKA ? `\n<script>(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");ym(${METRIKA},"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true});</script>` : ''}
+})()</script>${LIVE && METRIKA ? `\n<script>(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");ym(${METRIKA},"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true});</script>` : ''}
 </body></html>
 `;
   const target = path.join(OUT, file);
@@ -208,7 +207,7 @@ const contactForm = topic => { const n = ++formN; return `<form class="cform" id
 <div class="cform-foot"><button class="btn" type="submit">Отправить ${arrow}</button><p class="cform-note">Нажимая «Отправить», вы соглашаетесь на обработку указанных данных для ответа на обращение.</p></div>
 <p class="cform-st" role="status" aria-live="polite"></p></form>`; };
 // большой блок связи: форма и кнопки. topic попадает в тему письма
-const contactSection = (topic, title) => `<section class="band navy contact-sec" aria-labelledby="cta-h"><div class="wrap contact-in"><div class="contact-txt"><h2 id="cta-h">${title || 'Обсудим вашу задачу?'}</h2><p>${esc(CONTENT.about[1].split('. ').slice(1).join('. '))}</p>${contactBtns('on-navy')}</div>${contactForm(topic)}</div></section>`;
+const contactSection = (topic, title) => `<section class="band navy contact-sec" id="form" aria-labelledby="cta-h"><div class="wrap contact-in"><div class="contact-txt"><h2 id="cta-h">${title || 'Обсудим вашу задачу?'}</h2><p>${esc(CONTENT.about[1].split('. ').slice(1).join('. '))}</p>${contactBtns('on-navy')}</div></div></section>`;
 // короткий блок связи для страниц блога
 const ctaBand = `<section class="band cta" aria-labelledby="cta-h"><div class="wrap cta-in"><h2 id="cta-h">Обсудим вашу задачу?</h2>${contactBtns('')}<a class="btn" href="${P}/kontakty/#form">Написать ${arrow}</a></div></section>`;
 const authorBox = lead => `<aside class="author"><img src="${PHOTO}160.webp" alt="${esc(AUTHOR)}" width="72" height="90" loading="lazy" decoding="async"><div><b>${lead}</b><p>${esc(OCCUPATION)}. ${esc(CONTENT.about[0])}</p><a href="${P}/expert/">Об эксперте</a></div></aside>`;
@@ -389,10 +388,10 @@ ${ctaBand}` });
 // ---------- контакты ----------
 { const trail = [HOME, ['Контакты', P + '/kontakty/']];
   page({ file: 'kontakty/index.html', nav: 'kontakty', lastmod, canonOld: OLD + '/expert/',
-    title: 'Контакты — ' + AUTHOR, description: 'Телефон, почта, Telegram и форма для связи с Александром Горчаковым: обсудить диагностику ИТ, стратегию, корпоративный ИИ, интеграцию с госсистемами или роль советника.',
+    title: 'Контакты — ' + AUTHOR, description: 'Telegram и почта для связи с Александром Горчаковым: обсудить диагностику ИТ, стратегию, корпоративный ИИ, интеграцию с госсистемами или роль советника.',
     ld: { '@context': 'https://schema.org', '@graph': [{ '@type': 'ContactPage', '@id': BASE + '/kontakty/', url: BASE + '/kontakty/', name: 'Контакты', inLanguage: 'ru', isPartOf: { '@id': siteId }, mainEntity: { '@id': personId } }, person, website, crumbsLd(trail)] },
-    body: `<div class="wrap page-top">${crumbNav(trail)}<h1>Контакты</h1><p class="lead">Напишите, позвоните или оставьте сообщение в форме: оно придёт Александру на почту.</p></div>
-${contactSection('', 'Написать сообщение')}
+    body: `<div class="wrap page-top">${crumbNav(trail)}<h1>Контакты</h1><p class="lead">Напишите Александру в Telegram или на почту.</p></div>
+${contactSection('', 'Связаться')}
 <section class="sec"><div class="wrap contact"><div>${authorBox(esc(AUTHOR))}</div><div><h2>С чем можно обратиться</h2><ul class="links links-col">${SERVICES.map(o => `<li><a href="${o.url}">${esc(o.name)}</a><span>${esc(o.short)}</span></li>`).join('')}</ul></div></div></section>` }); }
 
 // служебная страница вариантов больше не нужна: варианты перелистываются на главной. Сервер не удаляет файлы, поэтому на её месте заглушка

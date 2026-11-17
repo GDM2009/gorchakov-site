@@ -186,10 +186,10 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .cbtns.on-navy .cbtn:hover small { color: var(--muted); }
 .cbtns.big { margin-top: 30px; }
 .contact-sec { padding-block: 72px; scroll-margin-top: 68px; }
-.contact-in { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 56px; align-items: start; }
+.contact-in { display: grid; grid-template-columns: minmax(0, 1fr); gap: 56px; align-items: start; }
 .contact-txt h2 { font-size: clamp(28px, 3vw, 38px); }
 .contact-txt > p { color: #c3cde0; margin: 18px 0 28px; max-width: 40ch; }
-.contact-txt .cbtns { flex-direction: column; align-items: flex-start; }
+.contact-txt .cbtns { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
 .cform { background: #fff; color: var(--ink); border-radius: var(--r); padding: 30px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; scroll-margin-top: 90px; }
 .cform-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .cform label { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; font-size: 14px; font-weight: 500; }

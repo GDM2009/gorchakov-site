@@ -319,7 +319,8 @@ const CONTENT = {
     { where: "Авикомп", what: "Интегратор: проекты для госсектора." },
     { where: "АВК", what: "Собственная ИТ-компания." }
   ],
-  email: "почта уточняется"
+  email: "ale.gorchakov@gmail.com",
+  telegram: "Alexander_Gorchakov"
 };
 /* Статьи блога. Список подставляет сборщик _src/sasha/build.js из папки blog/*.md. */
 const BLOG = [];
@@ -494,11 +495,8 @@ const APPS = {
     };
     list();
   } },
-  contact: { title: "Контакты", w: 460, h: 430, render(b) {
-    b.innerHTML = "<h2>Написать</h2><p>Почта: <b>" + esc(CONTENT.email) + "</b></p><form id='cform'><label for='cname'>Имя<input id='cname' required></label><label for='cmsg'>Сообщение<textarea id='cmsg' rows='4' required></textarea></label><button class='btn' type='submit'>Скопировать письмо</button><p id='cout' role='status' style='color:var(--holo);margin:0'></p></form><p style='color:var(--dim);font-size:12px'>Отправка появится после размещения сайта на хостинге. Пока кнопка копирует текст письма, чтобы вставить его в почту.</p>";
-    $("#cform", b).addEventListener("submit", e => { e.preventDefault(); const txt = "От: " + $("#cname", b).value + "\n\n" + $("#cmsg", b).value;
-      const out = $("#cout", b); const fail = () => { out.textContent = "Не удалось скопировать. Выделите текст вручную."; };
-      try { navigator.clipboard.writeText(txt).then(() => { out.textContent = "Скопировано. Вставьте текст в письмо."; }, fail); } catch (err) { fail(); } });
+  contact: { title: "Контакты", w: 460, h: 300, render(b) {
+    b.innerHTML = "<h2>Связаться</h2><p>Telegram: <a href='https://t.me/" + esc(CONTENT.telegram) + "' target='_blank' rel='noopener'><b>@" + esc(CONTENT.telegram) + "</b></a></p><p>Почта: <a href='mailto:" + esc(CONTENT.email) + "'><b>" + esc(CONTENT.email) + "</b></a></p>";
   } }
 };
 
