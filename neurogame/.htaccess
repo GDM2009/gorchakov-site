@@ -1,0 +1,13 @@
+# Нейрогонка (3D-остров Александра Горчакова)
+# Игру не индексируем: её содержимое собирает скрипт, а тексты есть на открытых страницах сайта
+<IfModule mod_headers.c>
+    Header set X-Robots-Tag "noindex, nofollow"
+</IfModule>
+AddType application/wasm .wasm
+AddType application/octet-stream .ktx .glb
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType application/wasm "access plus 30 days"
+    ExpiresByType application/octet-stream "access plus 7 days"
+    ExpiresByType audio/mpeg "access plus 30 days"
+</IfModule>

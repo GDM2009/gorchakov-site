@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head><meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Интерактивный 3D-кабинет Александра Горчакова, ИТ-директора и архитектора цифровой трансформации: кейсы, услуги, карьера, блог и игра «Нейрогонка»."><meta name="author" content="Александр Горчаков"><meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<link rel="canonical" href="https://gdm2009.github.io/gorchakov-site/kabinet/"><link rel="icon" href="https://gdm2009.github.io/gorchakov-site/img/favicon-120.png" sizes="120x120" type="image/png"><link rel="apple-touch-icon" href="https://gdm2009.github.io/gorchakov-site/img/favicon-180.png">
+<meta property="og:type" content="website"><meta property="og:title" content="Александр Горчаков — кабинет ИТ-директора: услуги, кейсы, блог"><meta property="og:description" content="Интерактивный 3D-кабинет Александра Горчакова, ИТ-директора и архитектора цифровой трансформации: кейсы, услуги, карьера, блог и игра «Нейрогонка»."><meta property="og:url" content="https://gdm2009.github.io/gorchakov-site/kabinet/"><meta property="og:site_name" content="Александр Горчаков"><meta property="og:locale" content="ru_RU"><meta property="og:image" content="https://gdm2009.github.io/gorchakov-site/assets/og.jpg"><meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://gdm2009.github.io/gorchakov-site/#website","name":"Александр Горчаков — цифровая трансформация госсектора и финансов","url":"https://gdm2009.github.io/gorchakov-site/kabinet/","inLanguage":"ru","publisher":{"@id":"https://gdm2009.github.io/gorchakov-site/#person"}},{"@type":"Person","@id":"https://gdm2009.github.io/gorchakov-site/#person","name":"Александр Горчаков","jobTitle":"Эксперт по цифровой трансформации госсектора и финансов","description":"Больше 20 лет строю цифровые системы для государства и финансов: от ИТ-стратегии до работающих продуктов. Минфин и Казначейство, ГИС ГМП, digital banking, цифровая экосистема нотариата. Был вендором, интегратором, заказчиком и владельцем ИТ-бизнеса, поэтому понимаю задачу с любой стороны.","url":"https://gdm2009.github.io/gorchakov-site/expert/","knowsAbout":["ИТ-стратегия","цифровая трансформация","интеграция с государственными системами","ГИС ГМП","digital banking","дистанционное банковское обслуживание","корпоративный ИИ","RAG","LLM","информационная безопасность","импортозамещение","Fractional CIO"],"knowsLanguage":"ru","image":"https://gdm2009.github.io/gorchakov-site/img/expert-640.jpg"},{"@type":"WebPage","@id":"https://gdm2009.github.io/gorchakov-site/kabinet/","url":"https://gdm2009.github.io/gorchakov-site/kabinet/","name":"Александр Горчаков — кабинет ИТ-директора: услуги, кейсы, блог","description":"Интерактивный 3D-кабинет Александра Горчакова, ИТ-директора и архитектора цифровой трансформации: кейсы, услуги, карьера, блог и игра «Нейрогонка».","inLanguage":"ru","isPartOf":{"@id":"https://gdm2009.github.io/gorchakov-site/#website"},"about":{"@id":"https://gdm2009.github.io/gorchakov-site/#person"}}]}</script>
+<title>Александр Горчаков — кабинет ИТ-директора: услуги, кейсы, блог</title>
+<link rel="icon" href="https://gdm2009.github.io/gorchakov-site/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Unbounded:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Раскладка: одна 3D-сцена на весь экран (стол + голографический компьютер),
+   внутри главного экрана живёт «AURA OS» с окнами. Один визуальный мир: рассвет в городе будущего. */
+:root{
+  color-scheme:dark;
+  --void:#0a0c11;      /* комната */
+  --panel:#111821;     /* стекло экранов */
+  --holo:#a6f5e3;      /* свет голограмм */
+  --dawn:#ff9a66;      /* рассвет за окном, акцент */
+  --ink:#e8f0f2;       /* текст */
+  --dim:#8493a0;       /* вторичный текст */
+  --line:rgba(166,245,227,.22);
+  --f-display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --f-body:"Golos Text","Segoe UI",system-ui,sans-serif;
+  --osw:960px;--osh:600px; /* логический размер экрана компьютера; на телефоне меняется скриптом */
+  --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--void);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;overflow:hidden}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--dawn);outline-offset:2px}
+
+/* ---------- сцена ---------- */
+#stage{position:absolute;inset:0;perspective:1400px;overflow:hidden;overflow:clip;background:radial-gradient(120% 90% at 50% 20%,#1a1f2b 0%,var(--void) 70%)}
+#world{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d;will-change:transform}
+.obj{position:absolute;left:0;top:0;transform-style:preserve-3d}
+#city{width:4800px;height:2200px;transform:translate(-50%,-50%) translate3d(0,-260px,-1500px)}
+#city canvas{width:100%;height:100%;display:block}
+#city::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 596px,rgba(8,10,14,.92) 596px 604px),linear-gradient(180deg,rgba(8,10,14,.9) 0 3%,transparent 3% 97%,rgba(8,10,14,.95) 97%)}
+#floor{width:5200px;height:3400px;transform:translate(-50%,-50%) translate3d(0,820px,-100px) rotateX(90deg);
+  background:
+    radial-gradient(60% 50% at 50% 0%,rgba(255,154,102,.30),transparent 70%),
+    repeating-linear-gradient(0deg,rgba(166,245,227,.07) 0 2px,transparent 2px 120px),
+    repeating-linear-gradient(90deg,rgba(166,245,227,.07) 0 2px,transparent 2px 120px),
+    linear-gradient(180deg,#151b25,#0a0c11 80%);
+  -webkit-mask-image:radial-gradient(70% 70% at 50% 35%,#000 40%,transparent 100%);mask-image:radial-gradient(70% 70% at 50% 35%,#000 40%,transparent 100%)}
+#ceil{width:3600px;height:2200px;transform:translate(-50%,-50%) translate3d(0,-1050px,-300px) rotateX(90deg);
+  background:linear-gradient(90deg,transparent 0 30%,rgba(166,245,227,.35) 30% 30.4%,transparent 30.4% 69.6%,rgba(166,245,227,.35) 69.6% 70%,transparent 70%),#0c0f15;
+  -webkit-mask-image:radial-gradient(60% 60% at 50% 50%,#000 30%,transparent 100%);mask-image:radial-gradient(60% 60% at 50% 50%,#000 30%,transparent 100%)}
+#deskGlow{width:1900px;height:1000px;transform:translate(-50%,-50%) translate3d(0,812px,150px) rotateX(90deg);background:radial-gradient(closest-side,rgba(166,245,227,.34),transparent);filter:blur(30px)}
+.lev{width:46px;height:430px;background:linear-gradient(180deg,rgba(166,245,227,.5),transparent);filter:blur(6px);animation:pulse 4s ease-in-out infinite}
+#lev1{transform:translate(-50%,0) translate3d(-640px,400px,150px)}
+#lev2{transform:translate(-50%,0) translate3d(640px,400px,150px);animation-delay:-2s}
+#desk{width:1700px;height:820px;transform:translate(-50%,-50%) translate3d(0,380px,150px) rotateX(90deg);border-radius:60px;
+  background:linear-gradient(135deg,rgba(40,56,70,.92),rgba(16,22,30,.94) 55%,rgba(48,40,44,.92));
+  border:2px solid rgba(166,245,227,.55);box-shadow:0 0 60px rgba(166,245,227,.25),inset 0 0 120px rgba(166,245,227,.08)}
+#desk::before{content:"";position:absolute;inset:26px;border-radius:40px;border:1px solid rgba(166,245,227,.14);
+  background:repeating-linear-gradient(90deg,transparent 0 80px,rgba(166,245,227,.04) 80px 81px)}
+#deskEdge{width:1580px;height:22px;transform:translate(-50%,-50%) translate3d(0,392px,560px);border-radius:0 0 14px 14px;
+  background:linear-gradient(180deg,rgba(166,245,227,.75),rgba(20,28,36,.95) 30%);box-shadow:0 8px 40px rgba(166,245,227,.35)}
+#beam{width:760px;height:90px;transform:translate(-50%,0) translate3d(0,300px,-6px);clip-path:polygon(0 0,100% 0,62% 100%,38% 100%);background:linear-gradient(180deg,rgba(166,245,227,.05),rgba(166,245,227,.5))}
+#kbd{width:640px;height:210px;transform:translate(-50%,-50%) translate3d(-30px,376px,400px) rotateX(90deg);border-radius:14px;
+  background:
+   repeating-linear-gradient(90deg,transparent 0 4px,rgba(166,245,227,.0) 4px 42px,transparent 42px 46px),
+   repeating-linear-gradient(0deg,rgba(10,14,18,1) 0 4px,transparent 4px 38px,rgba(10,14,18,1) 38px 42px),
+   repeating-linear-gradient(90deg,rgba(10,14,18,1) 0 4px,rgba(166,245,227,.30) 4px 42px,rgba(10,14,18,1) 42px 46px);
+  box-shadow:0 0 30px rgba(166,245,227,.35);opacity:.85}
+#mouse{width:74px;height:40px;transform:translate(-50%,-50%) translate3d(390px,350px,410px);border-radius:50% 50% 46% 46%/70% 70% 30% 30%;
+  background:radial-gradient(120% 120% at 40% 10%,#f4fbfb,#7c8c96 45%,#1a222b 80%);box-shadow:0 0 22px rgba(166,245,227,.5);animation:bob 5s ease-in-out infinite}
+#mouse::after{content:"";position:absolute;left:10%;right:10%;bottom:6px;height:2px;background:var(--dawn);box-shadow:0 0 10px var(--dawn);border-radius:2px}
+#mouseRing{width:120px;height:120px;transform:translate(-50%,-50%) translate3d(390px,377px,410px) rotateX(90deg);border-radius:50%;border:2px solid rgba(255,154,102,.6);box-shadow:0 0 24px rgba(255,154,102,.5)}
+#cup{width:66px;height:92px;transform:translate(-50%,-100%) translate3d(600px,378px,330px);border-radius:8px 8px 22px 22px;
+  background:linear-gradient(90deg,rgba(255,255,255,.28),rgba(255,255,255,.05) 30%,rgba(255,154,102,.35) 60%,rgba(255,255,255,.2));border:1px solid rgba(255,255,255,.4)}
+#cup i{position:absolute;left:50%;bottom:86px;width:20px;height:70px;margin-left:-10px;border-radius:50%;background:rgba(232,240,242,.5);filter:blur(9px);animation:steam 4s linear infinite}
+#cup i:nth-child(2){animation-delay:-1.4s;margin-left:-22px}#cup i:nth-child(3){animation-delay:-2.7s;margin-left:4px}
+#holoRing{width:230px;height:230px;transform:translate(-50%,-50%) translate3d(-620px,377px,300px) rotateX(90deg);border-radius:50%;border:2px solid rgba(166,245,227,.7);box-shadow:0 0 40px rgba(166,245,227,.6),inset 0 0 40px rgba(166,245,227,.4)}
+#holo{width:300px;height:300px;transform:translate(-50%,-100%) translate3d(-620px,372px,300px)}
+#holo canvas{width:100%;height:100%}
+/* экраны */
+.glass{background:linear-gradient(160deg,rgba(24,34,46,.90),rgba(12,17,24,.94));border:1px solid var(--line);box-shadow:0 0 0 1px rgba(0,0,0,.4),0 0 50px rgba(166,245,227,.22),inset 0 0 60px rgba(166,245,227,.05)}
+/* экран рисуется в двойном размере и уменьшается вдвое, чтобы текст оставался чётким при наезде камеры */
+#screen{width:calc(var(--osw)*2);height:calc(var(--osh)*2);transform:translate(-50%,-50%) translateY(calc((600px - var(--osh))/2)) scale(.5);border-radius:36px;overflow:hidden;overflow:clip}
+.wing{width:400px;height:600px;border-radius:18px;padding:28px;font-family:var(--f-mono);color:var(--holo);overflow:hidden}
+#wingL{transform:translate(-50%,-50%) translate3d(-494px,0,0) rotateY(34deg) translateX(-200px)}
+#wingR{transform:translate(-50%,-50%) translate3d(494px,0,0) rotateY(-34deg) translateX(200px)}
+.wing h4{margin:0 0 6px;font:400 12px var(--f-mono);letter-spacing:.14em;color:var(--dim);text-transform:uppercase}
+.wing .big{font:600 58px/1 var(--f-display);color:var(--ink);font-variant-numeric:tabular-nums}
+.wing p{margin:6px 0 26px;font-size:14px}
+.bars{display:flex;gap:7px;align-items:flex-end;height:130px;margin-bottom:26px}
+.bars span{flex:1;height:100%;background:linear-gradient(180deg,var(--holo),rgba(166,245,227,.1));animation:eq 1.8s ease-in-out infinite;transform-origin:bottom}
+.meter{height:8px;border-radius:4px;background:rgba(166,245,227,.14);margin:8px 0 20px;overflow:hidden}
+.meter b{display:block;height:100%;background:var(--dawn)}
+@keyframes eq{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}
+@keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+@keyframes bob{0%,100%{margin-top:0}50%{margin-top:-7px}}
+@keyframes steam{0%{transform:translateY(0) scale(.6);opacity:0}25%{opacity:.8}100%{transform:translateY(-110px) scale(1.5);opacity:0}}
+
+/* ---------- AURA OS ---------- */
+#os{position:absolute;left:0;top:0;width:var(--osw);height:var(--osh);transform:scale(2);transform-origin:0 0;display:flex;flex-direction:column;font-size:14px;
+  background:radial-gradient(90% 70% at 80% 0%,rgba(255,154,102,.20),transparent 60%),radial-gradient(70% 60% at 10% 100%,rgba(166,245,227,.14),transparent 60%)}
+#bar{display:flex;gap:16px;align-items:center;padding:8px 16px;font:500 12px var(--f-mono);color:var(--dim);border-bottom:1px solid var(--line)}
+#bar b{font:600 12px var(--f-display);color:var(--ink);letter-spacing:.08em}
+#bar .sp{flex:1}
+#bar button{background:none;border:1px solid var(--line);border-radius:6px;padding:2px 10px;font:500 12px var(--f-mono);color:var(--dim)}
+#bar button:hover{color:var(--ink);border-color:var(--holo)}
+#desktop{position:relative;flex:1;overflow:hidden;overflow:clip}
+#icons{position:absolute;left:16px;top:16px;display:grid;grid-template-rows:repeat(4,auto);grid-auto-flow:column;gap:10px 14px}
+.ico{width:92px;padding:10px 4px 8px;display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:1px solid transparent;border-radius:12px;font-size:12px;text-align:center}
+.ico:hover,.ico:focus-visible{background:rgba(166,245,227,.08);border-color:var(--line)}
+.ico svg,.dock svg{width:34px;height:34px;stroke:var(--holo);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+#deskTitle{position:absolute;right:34px;top:50%;transform:translateY(-50%);width:520px;text-align:right;pointer-events:none}
+#deskTitle h1{margin:0;font:600 40px/1.15 var(--f-display);text-wrap:balance;color:var(--ink)}
+#deskTitle p{margin:12px 0 0;font:400 14px var(--f-mono);color:var(--holo)}
+#neurogame{position:fixed;inset:0;z-index:9999;background:#000}
+#neurogame iframe{width:100%;height:100%;border:0;display:block}
+#neurogame .hbtn{position:absolute;top:12px;left:12px;color:var(--ink)}
+.gload{position:absolute;left:50%;bottom:8%;transform:translateX(-50%);width:min(420px,calc(100% - 32px));display:grid;gap:8px;padding:16px 18px;border-radius:14px;background:rgba(10,12,17,.88);border:1px solid var(--line);color:var(--ink);font-size:14px;pointer-events:none}
+.gload b{font:600 13px var(--f-display);letter-spacing:.04em}
+.gbar{height:10px;border-radius:5px;background:rgba(166,245,227,.14);overflow:hidden}
+.gbar i{display:block;height:100%;width:0;border-radius:5px;background:linear-gradient(90deg,var(--holo),var(--dawn));transition:width .25s linear}
+.gpct{font:500 20px var(--f-mono);color:var(--holo);font-variant-numeric:tabular-nums}
+.gload small{color:var(--dim)}
+.ico em{font:400 10px var(--f-mono);font-style:normal;color:var(--dawn);border:1px solid rgba(255,154,102,.5);border-radius:10px;padding:0 6px}
+.posts{display:grid;gap:8px}
+.post{display:grid;gap:3px;text-align:left;background:rgba(166,245,227,.04);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.post:hover{border-color:var(--holo)}.post.pic{grid-template-columns:150px 1fr;column-gap:14px;align-items:start}.post.pic img{grid-row:1/4;width:150px;aspect-ratio:16/9;object-fit:cover;border-radius:8px;background:#0c1118}.post.pic>:not(img){grid-column:2}.art img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin-bottom:12px;background:#0c1118}.post time,.art time{font:400 12px var(--f-mono);color:var(--dim)}.post b{font-size:15px}.post span{color:var(--dim);font-size:13px}
+.art{margin-top:12px}.art ul,.art ol{max-width:62ch;padding-left:20px}.art blockquote{margin:0 0 10px;padding-left:12px;border-left:2px solid var(--dawn);color:var(--dim)}
+.lnk,.art a{color:var(--holo)}
+#dock{display:flex;gap:6px;justify-content:center;padding:8px;border-top:1px solid var(--line)}
+.dock{position:relative;background:rgba(166,245,227,.06);border:1px solid var(--line);border-radius:10px;padding:5px 9px;display:flex}
+.dock svg{width:22px;height:22px}
+.dock.open::after{content:"";position:absolute;left:50%;bottom:-5px;width:14px;height:3px;margin-left:-7px;border-radius:2px;background:var(--dawn)}
+.dock:hover{background:rgba(166,245,227,.16)}
+.win{position:absolute;display:flex;flex-direction:column;min-width:300px;border-radius:14px;overflow:hidden;
+  background:linear-gradient(160deg,#1a2430,#0d1219);border:1px solid var(--line);box-shadow:0 20px 50px rgba(0,0,0,.55),0 0 26px rgba(166,245,227,.12)}
+.win.max{left:0!important;top:0!important;width:100%!important;height:100%!important;border-radius:0}
+.win header{display:flex;align-items:center;gap:8px;padding:8px 10px 8px 14px;cursor:grab;border-bottom:1px solid var(--line);user-select:none;touch-action:none}
+.win header span{flex:1;font:600 12px var(--f-display);letter-spacing:.06em}
+.win header button{width:26px;height:22px;border-radius:6px;border:1px solid var(--line);background:none;font:500 12px var(--f-mono);color:var(--dim);line-height:1}
+.win header button:hover{color:var(--void);background:var(--holo)}
+.win .body{flex:1;overflow:auto;padding:18px 20px;scrollbar-color:var(--line) transparent}
+.win h2{margin:0 0 10px;font:600 22px/1.2 var(--f-display);text-wrap:balance}
+.win h3{margin:18px 0 6px;font:600 13px var(--f-display);letter-spacing:.05em;color:var(--holo)}
+.win p{margin:0 0 10px;max-width:62ch}
+.note{font:400 12px var(--f-mono);color:var(--dawn);border:1px dashed rgba(255,154,102,.5);border-radius:8px;padding:6px 10px;display:inline-block;margin-bottom:12px}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.facts div{border:1px solid var(--line);border-radius:10px;padding:8px 10px}.facts b{display:block;font:600 17px var(--f-display);color:var(--dawn)}.facts small{color:var(--dim)}
+.me{float:right;width:150px;height:auto;margin:0 0 10px 16px;border-radius:14px;border:1px solid var(--line);box-shadow:0 0 24px rgba(166,245,227,.18)}
+body.mob .me{width:112px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.chip{border:1px solid var(--line);background:none;border-radius:20px;padding:3px 12px;font-size:12px;color:var(--dim)}
+.chip[aria-pressed="true"]{background:var(--holo);color:var(--void);border-color:var(--holo)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.card{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:rgba(166,245,227,.04)}
+.card canvas{display:block;width:100%;height:110px;background:#0c1118}
+.card div{padding:10px 12px}
+.card b{display:block;font-size:14px}.card small{color:var(--dim)}
+.tl{margin:0;padding:0;list-style:none;border-left:1px solid var(--line)}
+.tl li{position:relative;padding:0 0 16px 18px}
+.tl li::before{content:"";position:absolute;left:-5px;top:6px;width:9px;height:9px;border-radius:50%;background:var(--dawn)}
+.tl time{font:400 12px var(--f-mono);color:var(--dim)}
+form{display:grid;gap:10px;max-width:420px}
+label{display:grid;gap:4px;font-size:12px;color:var(--dim)}
+input,textarea{font:inherit;color:var(--ink);background:rgba(0,0,0,.3);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.btn{justify-self:start;background:var(--dawn);color:#1b0e06;border:0;border-radius:8px;padding:8px 16px;font-weight:600}
+.btn:hover{filter:brightness(1.1)}
+#gameC{display:block;margin:0 auto;border:1px solid var(--line);border-radius:8px;background:#0a0e13;max-width:100%}
+#sleep{position:absolute;inset:0;display:none;flex-direction:column;gap:16px;align-items:center;justify-content:center;background:#05070a;z-index:999}
+#sleep.on{display:flex}
+#tap{position:absolute;inset:0;z-index:1000;display:flex;align-items:flex-end;justify-content:center;padding:170px 40px;background:none;border:0;cursor:zoom-in}
+#tap span{display:inline-flex;align-items:center;gap:20px;font:600 54px var(--f-body);color:#1b0e06;background:var(--dawn);padding:26px 60px;border-radius:70px;box-shadow:0 0 0 6px rgba(255,154,102,.25),0 0 80px rgba(255,154,102,.7);animation:tapPulse 1.6s ease-in-out infinite}
+#tap span::before{content:"";width:34px;height:34px;border-radius:50%;border:6px solid #1b0e06;box-shadow:inset 0 0 0 8px var(--dawn),inset 0 0 0 20px #1b0e06}
+@keyframes tapPulse{0%,100%{transform:scale(1);box-shadow:0 0 0 6px rgba(255,154,102,.25),0 0 80px rgba(255,154,102,.7)}50%{transform:scale(1.07);box-shadow:0 0 0 26px rgba(255,154,102,0),0 0 120px rgba(255,154,102,.95)}}
+body.mob #tap span{font-size:46px;padding:22px 44px}
+body.desk #tap{display:none}
+
+/* ---------- HUD, загрузка ---------- */
+#hud{position:absolute;left:0;right:0;top:0;display:flex;gap:10px;align-items:center;padding:14px 18px;pointer-events:none;z-index:5}
+#hud>*{pointer-events:auto}
+#hud .name{font:600 14px var(--f-display);letter-spacing:.06em}
+#hud .name small{display:block;font:400 11px var(--f-mono);color:var(--dim);letter-spacing:0}
+#hud .sp{flex:1;pointer-events:none}
+.hbtn{background:rgba(10,12,17,.7);border:1px solid var(--line);border-radius:20px;padding:6px 14px;font-size:13px}
+.hbtn:hover{border-color:var(--holo)}
+#back{display:none}body.desk #back{display:inline-block}
+body.desk #hud .name{display:none}
+#boot{position:absolute;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(6,8,11,.82)}
+#bootVid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;display:none}
+#boot .box{position:relative;background:rgba(6,8,11,.72);padding:26px 28px;border-radius:16px;border:1px solid var(--line);width:min(560px,100%);font:400 13px/1.7 var(--f-mono);color:var(--holo)}
+#boot h1{margin:0 0 14px;font:600 clamp(24px,5vw,38px)/1.15 var(--f-display);color:var(--ink);text-wrap:balance}
+#log{min-height:8.5em;margin:0 0 16px;white-space:pre-wrap;color:var(--dim)}
+#boot .row{display:flex;flex-wrap:wrap;gap:10px}
+#boot .btn{font-size:15px;padding:10px 22px}
+/* ---------- телефон: экран компьютера вытянут по вертикали, окна открываются на весь экран ---------- */
+body.mob .wing,body.mob #ceil,body.mob #deskGlow,body.mob .lev{display:none}
+body.mob #city{width:1200px;height:550px;transform:translate(-50%,-50%) translate3d(0,-260px,-1500px) scale(4)}
+body.mob #city::after{background:repeating-linear-gradient(90deg,transparent 0 149px,rgba(8,10,14,.92) 149px 151px)}
+body.mob #floor{width:1300px;height:850px;transform:translate(-50%,-50%) translate3d(0,820px,-100px) rotateX(90deg) scale(4);
+  background:radial-gradient(60% 50% at 50% 0%,rgba(255,154,102,.30),transparent 70%),repeating-linear-gradient(0deg,rgba(166,245,227,.09) 0 1px,transparent 1px 30px),repeating-linear-gradient(90deg,rgba(166,245,227,.09) 0 1px,transparent 1px 30px),linear-gradient(180deg,#151b25,#0a0c11 80%)}
+body.mob #desk{box-shadow:0 0 30px rgba(166,245,227,.25)}
+body.mob #desktop{display:flex;flex-direction:column}
+body.mob #icons{position:static;grid-template-rows:none;grid-auto-flow:row;grid-template-columns:repeat(4,1fr);gap:4px;padding:10px 8px 0}
+body.mob .ico{width:auto;padding:8px 2px 6px;font-size:11px}
+body.mob #deskTitle{position:static;transform:none;width:auto;text-align:center;padding:22px 16px 0}
+body.mob #deskTitle h1{font-size:25px}
+body.mob #deskTitle p{font-size:12px}
+body.mob .win{left:0!important;top:0!important;width:100%!important;height:100%!important;border-radius:0}
+body.mob .win header{cursor:default;padding:10px 10px 10px 14px}
+body.mob .win header button[aria-label="Развернуть"]{display:none}
+body.mob .win header button{width:38px;height:32px;font-size:15px}
+body.mob .win .body{padding:16px 14px;font-size:15px}
+body.mob #bar{gap:10px}body.mob #bar>span:nth-child(2),body.mob #osDate{display:none}
+body.mob #dock{justify-content:flex-start;overflow-x:auto}
+body.mob .dock{padding:8px 11px}
+body.mob .facts{grid-template-columns:repeat(2,1fr)}
+body.mob .cards{grid-template-columns:1fr}
+body.mob .post.pic{grid-template-columns:104px 1fr;column-gap:10px}body.mob .post.pic img{width:104px}
+body.mob #gameC{width:100%;height:auto;touch-action:none}
+body.mob #hud{padding:10px 12px}body.mob #hud .name{font-size:12px}body.mob .hbtn{padding:8px 12px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<noscript><div style="max-width:720px;margin:0 auto;padding:32px 20px;font:16px/1.6 system-ui,sans-serif;color:#e8f0f2;height:100vh;overflow:auto"><h1>Александр Горчаков</h1><p>Эксперт по цифровой трансформации госсектора и финансов. Больше 20 лет строю цифровые системы для государства и финансов: от ИТ-стратегии до работающих продуктов. Минфин и Казначейство, ГИС ГМП, digital banking, цифровая экосистема нотариата. Был вендором, интегратором, заказчиком и владельцем ИТ-бизнеса, поэтому понимаю задачу с любой стороны.</p><p>Кабинет работает со скриптами. Без них откройте обычные страницы:</p><ul><li><a href="https://gdm2009.github.io/gorchakov-site/expert/" style="color:#a6f5e3">Об эксперте: резюме, опыт, карьера</a></li><li><a href="https://gdm2009.github.io/gorchakov-site/uslugi/" style="color:#a6f5e3">Услуги</a>: <a href="https://gdm2009.github.io/gorchakov-site/uslugi/ekspress-diagnostika-it/" style="color:#a6f5e3">Экспресс-диагностика ИТ</a>, <a href="https://gdm2009.github.io/gorchakov-site/uslugi/it-strategiya/" style="color:#a6f5e3">ИТ-стратегия и дорожная карта</a>, <a href="https://gdm2009.github.io/gorchakov-site/uslugi/fractional-cio/" style="color:#a6f5e3">Fractional и Interim CIO: ИТ-директор на часть времени</a>, <a href="https://gdm2009.github.io/gorchakov-site/uslugi/sobstvennaya-razrabotka/" style="color:#a6f5e3">Собственная разработка с нуля</a>, <a href="https://gdm2009.github.io/gorchakov-site/uslugi/korporativnyi-ii/" style="color:#a6f5e3">Корпоративный ИИ в закрытом контуре</a>, <a href="https://gdm2009.github.io/gorchakov-site/uslugi/integraciya-s-gossistemami/" style="color:#a6f5e3">Интеграция с государственными системами</a>, <a href="https://gdm2009.github.io/gorchakov-site/uslugi/tech-due-diligence/" style="color:#a6f5e3">Tech due diligence</a>, <a href="https://gdm2009.github.io/gorchakov-site/uslugi/sovetnik/" style="color:#a6f5e3">Советник по ИТ и цифровой трансформации</a></li><li><a href="https://gdm2009.github.io/gorchakov-site/keisy/" style="color:#a6f5e3">Кейсы</a></li><li><a href="https://gdm2009.github.io/gorchakov-site/blog/" style="color:#a6f5e3">Блог</a>: <a href="https://gdm2009.github.io/gorchakov-site/blog/importozameshchenie-i-ib-ukazy-166-250/" style="color:#a6f5e3">Импортозамещение и безопасность после указов № 166 и № 250: задача ИТ-директора, а не только CISO</a>, <a href="https://gdm2009.github.io/gorchakov-site/blog/integraciya-s-gossistemami/" style="color:#a6f5e3">Интеграция с госсистемами: почему цифровая трансформация ломается между системами</a>, <a href="https://gdm2009.github.io/gorchakov-site/blog/korporativnyi-ii-v-zakrytom-konture/" style="color:#a6f5e3">Корпоративный ИИ в закрытом контуре: как внедрить языковую модель и не потерять данные</a>, <a href="https://gdm2009.github.io/gorchakov-site/blog/svoya-razrabotka-ili-podryadchik/" style="color:#a6f5e3">Своя разработка или подрядчик: когда компании пора строить ИТ-производство</a>, <a href="https://gdm2009.github.io/gorchakov-site/blog/proekty-lomayutsya-na-stykah/" style="color:#a6f5e3">Я сидел по все стороны стола: почему большие ИТ-проекты ломаются на стыках</a>, <a href="https://gdm2009.github.io/gorchakov-site/blog/o-chem-etot-blog/" style="color:#a6f5e3">О чём этот блог: ИТ-стратегия, госсистемы, финтех и корпоративный ИИ</a></li></ul></div></noscript>
+
+<div id="stage">
+  <div id="world">
+    <div class="obj" id="city"><canvas width="2400" height="1100" aria-hidden="true"></canvas></div>
+    <div class="obj" id="ceil"></div>
+    <div class="obj" id="floor"></div>
+    <div class="obj" id="deskGlow"></div>
+    <div class="obj lev" id="lev1"></div><div class="obj lev" id="lev2"></div>
+    <div class="obj" id="desk"></div>
+    <div class="obj" id="deskEdge"></div>
+    <div class="obj" id="beam"></div>
+    <div class="obj glass wing" id="wingL" aria-hidden="true">
+      <h4>Локальное время</h4><div class="big" id="wClock">00:00</div><p id="wDate"></p>
+      <h4>Питание стола</h4><div class="meter"><b style="width:98%"></b></div>
+      <h4>Левитация</h4><div class="meter"><b style="width:72%"></b></div>
+      <h4>Орбитальный лифт</h4><p>по расписанию</p>
+    </div>
+    <div class="obj glass wing" id="wingR" aria-hidden="true">
+      <h4>Нейроканал</h4>
+      <div class="bars" id="bars"></div>
+      <h4>Проектор экрана</h4><p>3 плоскости · 12K</p>
+      <h4>Воздух в кабинете</h4><p>21° · 44% · чисто</p>
+    </div>
+    <div class="obj glass" id="screen">
+      <div id="os">
+        <div id="bar"><b>AURA OS</b><span>кабинет Горчакова</span><span class="sp"></span><span id="osDate"></span><span id="osClock"></span><button id="sleepBtn" type="button">Сон</button></div>
+        <div id="desktop"><div id="icons"></div><div id="deskTitle"><h1>Кабинет Александра Горчакова</h1><p>Цифровая трансформация госсектора и финансов</p></div></div>
+        <div id="dock"></div>
+        <div id="sleep"><p style="font-family:var(--f-mono);color:var(--dim)">Система спит</p><button class="btn" id="wake" type="button">Разбудить</button></div>
+      </div>
+      <button id="tap" type="button" aria-label="Приблизить экран"><span>Нажмите на экран</span></button>
+    </div>
+    <div class="obj" id="kbd"></div>
+    <div class="obj" id="mouseRing"></div>
+    <div class="obj" id="mouse"></div>
+    <div class="obj" id="cup"><i></i><i></i><i></i></div>
+    <div class="obj" id="holoRing"></div>
+    <div class="obj" id="holo"><canvas width="300" height="300" aria-hidden="true"></canvas></div>
+  </div>
+</div>
+
+<div id="hud">
+  <div class="name">АЛЕКСАНДР ГОРЧАКОВ<small>личный кабинет</small></div>
+  <button class="hbtn" id="back" type="button">← Отойти от стола</button>
+  <span class="sp"></span>
+  <button class="hbtn" id="sound" type="button" aria-pressed="false">Звук: выкл</button>
+</div>
+
+<div id="boot">
+  <video id="bootVid" muted loop playsinline aria-hidden="true"></video>
+  <div class="box">
+    <h1>Кабинет Александра Горчакова</h1>
+    <pre id="log" aria-live="polite"></pre>
+    <div class="row">
+      <button class="btn" id="start" type="button">Войти в кабинет</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+"use strict";
+/* ============ КОНТЕНТ: правится здесь, код ниже трогать не нужно ============ */
+const CONTENT = {
+  name: "Александр Горчаков",
+  role: "Цифровая трансформация госсектора и финансов",
+  photo: "https://gdm2009.github.io/gorchakov-site/img/expert-320.webp",
+  about: [
+    "Больше 20 лет строю цифровые системы для государства и финансов: от ИТ-стратегии до работающих продуктов.",
+    "Минфин и Казначейство, ГИС ГМП, digital banking, цифровая экосистема нотариата. Был вендором, интегратором, заказчиком и владельцем ИТ-бизнеса, поэтому понимаю задачу с любой стороны."
+  ],
+  facts: [["20+", "лет в ИТ"], ["1 млрд ₽+", "бюджеты проектов"], ["30 000+", "пользователей экосистемы"], ["100+", "человек в ИТ-производстве"], ["30+", "госпроектов"], ["200+", "госзаказчиков"]],
+  skills: ["ИТ-стратегия", "Построение ИТ-функции с нуля", "Интеграция с госсистемами", "Digital banking", "Корпоративный ИИ (RAG, LLM)", "Информационная безопасность", "Импортозамещение"],
+  projects: [
+    { title: "Цифровая экосистема нотариата", cat: "Госсектор", text: "ФНП. 30 000+ пользователей, связь с Госуслугами, ведомствами и сотнями банков.", hue: 165 },
+    { title: "Корпоративный ИИ", cat: "ИИ", text: "RAG и LLM в закрытом контуре для внутренней работы с информацией.", hue: 20 },
+    { title: "Исполнение бюджета", cat: "Госсектор", text: "Автоматизация для Минфина и Казначейства.", hue: 200 },
+    { title: "ГИС ГМП", cat: "Госсектор", text: "Государственная система платежей: связка государства и банков.", hue: 60 },
+    { title: "Интернет-банк для юрлиц", cat: "Финансы", text: "ПСБ. ДБО и digital banking для бизнеса.", hue: 300 },
+    { title: "CORREQTS", cat: "Финансы", text: "BSS. Платформа ДБО для Raiffeisen, Nordea, Intesa, МТС-Банка.", hue: 340 }
+  ],
+  services: [
+    ["Экспресс-диагностика ИТ", "Аудит за 2–3 недели с картой рисков и приоритетов."],
+    ["ИТ-стратегия и дорожная карта", "Архитектура, бюджет, план импортозамещения."],
+    ["Fractional / Interim CIO", "ИТ-директор на часть времени."],
+    ["Своя разработка с нуля", "Команда, процессы, DevOps и DevSecOps."],
+    ["Корпоративный ИИ", "LLM и RAG с учётом безопасности и требований регуляторов."],
+    ["Интеграция с госсистемами", "Госуслуги, ГИС ГМП, ведомства."],
+    ["Tech due diligence", "Оценка ИТ и команд перед сделкой или запуском."],
+    ["Советник", "Сопровождение руководителя или совета директоров."]
+  ],
+  experience: [
+    { where: "ФНП", what: "ИТ-производство на 100+ человек, цифровая экосистема нотариата." },
+    { where: "ПСБ", what: "Сторона заказчика: интернет-банк для юридических лиц." },
+    { where: "Мегар", what: "Интегратор: создание in-house разработки." },
+    { where: "BSS", what: "Вендор: платформа CORREQTS для банков." },
+    { where: "Авикомп", what: "Интегратор: проекты для госсектора." },
+    { where: "АВК", what: "Собственная ИТ-компания." }
+  ],
+  email: "ale.gorchakov@gmail.com",
+  telegram: "Alexander_Gorchakov"
+};
+/* Статьи блога. Список подставляет сборщик _src/sasha/build.js из папки blog/*.md. */
+const BLOG = [{"slug":"importozameshchenie-i-ib-ukazy-166-250","title":"Импортозамещение и безопасность после указов № 166 и № 250: задача ИТ-директора, а не только CISO","description":"Замена иностранного ПО на объектах КИИ — архитектурный проект, а не закупка лицензий. С чего начинать, на чём теряют время и как поделить роли ИТ и ИБ.","dateText":"14 ноября 2026","html":"\u003cp>В 2022 году вышли два указа, которые для многих организаций поменяли повестку ИТ на годы вперёд. Указ № 166 запретил с 1 января 2025 года использовать иностранное ПО на значимых объектах критической информационной инфраструктуры. Указ № 250 ввёл персональную ответственность руководителей за информационную безопасность, обязал назначить заместителя, отвечающего за ИБ, и запретил с той же даты средства защиты информации из недружественных стран. Потом появилось постановление Правительства № 1912 о переходе субъектов КИИ на доверенные программно-аппаратные комплексы до 2030 года, а в 2025–2026 годах требования закрепили в законе о безопасности КИИ и взялись за отраслевые сроки перевода типовых объектов на российское ПО.\u003c/p>\n\u003cp>Я возглавлял ИТ в организации, которая попадает под эти требования, имею квалификацию руководителя по информационной безопасности и проводил переход на PostgreSQL и Kubernetes. Из этого опыта у меня сложилось убеждение: импортозамещение, которое отдано целиком службе безопасности или закупкам, почти всегда обходится дороже и даёт меньше. Это задача для ИТ-директора и архитектора.\u003c/p>\n\u003ch2 id=\"zamena-odin-k-odnomu-ne-rabotaet\">Замена «один к одному» не работает\u003c/h2>\n\u003cp>Первый инстинкт — составить таблицу «иностранный продукт → российский аналог» и пройти по ней сверху вниз. Так делать не стоит. Системы связаны между собой: смена СУБД затрагивает приложения, смена виртуализации — резервное копирование и мониторинг, смена операционной системы — средства защиты. Простая замена продуктов переносит в новую инфраструктуру все старые проблемы и добавляет новые.\u003c/p>\n\u003cp>Правильнее смотреть на импортозамещение как на вынужденную, но целиком реальную возможность пересобрать платформу и расплатиться с техническим долгом. Деньги и внимание руководства на такую пересборку в другое время получить гораздо труднее.\u003c/p>\n\u003ch2 id=\"s-chego-nachinat\">С чего начинать\u003c/h2>\n\u003cp>\u003cstrong>Инвентаризация с привязкой к бизнес-процессам.\u003c/strong> Не просто список лицензий, а карта: какое ПО поддерживает какой процесс, какие объекты отнесены к значимым, что от чего зависит. В большинстве организаций на этом шаге находится немало сюрпризов: забытые серверы, встроенные иностранные компоненты в самописных системах, сервисы, которыми никто не владеет.\u003c/p>\n\u003cp>\u003cstrong>Приоритеты по риску, а не по удобству.\u003c/strong> Сначала то, что попадает под прямой запрет или лишилось поддержки и обновлений безопасности. Затем фундамент: СУБД, виртуализация, контейнерная платформа, операционные системы. Прикладные системы и рабочие места логично переводить уже на готовую основу.\u003c/p>\n\u003cp>\u003cstrong>Целевая архитектура до выбора продуктов.\u003c/strong> Решите, как должна выглядеть платформа через три–пять лет, и только потом выбирайте продукты под неё. Для нас таким решением стал переход на PostgreSQL и контейнерную платформу на базе Kubernetes. Это открытые технологии с российскими сертифицированными сборками, и они снижают зависимость от конкретного поставщика.\u003c/p>\n\u003ch2 id=\"na-chem-teryayut-vremya-i-dengi\">На чём теряют время и деньги\u003c/h2>\n\u003cul>\u003cli>\u003cstrong>Производительность не проверили заранее.\u003c/strong> Перенос базы данных с промышленной СУБД на PostgreSQL — это не конвертация схемы. Хранимая логика, сложные запросы и нагрузка в пик поведут себя по-другому. Нагрузочные тесты на реалистичных данных нужны до переключения, а не после.\u003c/li>\u003cli>\u003cstrong>Нет параллельной работы.\u003c/strong> Критичные системы переводят с периодом, когда старая и новая работают одновременно и результаты сверяются. Это дороже, но дешевле одной серьёзной аварии.\u003c/li>\u003cli>\u003cstrong>Людей не переучили.\u003c/strong> Администратор с многолетним опытом на одной платформе не станет экспертом по другой за месяц. Обучение нужно закладывать в бюджет и график наравне с лицензиями.\u003c/li>\u003cli>\u003cstrong>Безопасность подключили в конце.\u003c/strong> Если служба ИБ видит новую архитектуру впервые на аттестации, переделки неизбежны. Средства защиты, сертифицированные сборки и модель угроз проектируются вместе с платформой.\u003c/li>\u003c/ul>\n\u003ch2 id=\"roli-it-direktora-i-rukovoditelya-ib\">Роли ИТ-директора и руководителя ИБ\u003c/h2>\n\u003cp>Указ № 250 сделал информационную безопасность личной зоной ответственности первого лица. Это хороший повод пересмотреть отношения ИТ и ИБ. В старой модели ИТ строит, а ИБ проверяет и запрещает. В работающей модели требования безопасности встроены в процесс разработки и эксплуатации: автоматические проверки кода и зависимостей, управление доступами, мониторинг событий. Именно так устроен DevSecOps.\u003c/p>\n\u003cp>Когда ИТ-директор сам понимает требования регулятора на уровне руководителя ИБ, споров становится меньше, а решения принимаются быстрее. Поэтому я считаю подготовку в области ИБ обязательной для ИТ-руководителя в госсекторе и финансах.\u003c/p>\n\u003ch2 id=\"o-srokah\">О сроках\u003c/h2>\n\u003cp>Нормативная база продолжает меняться. На момент написания статьи для типовых значимых объектов КИИ устанавливаются отраслевые сроки перехода, а для крупных проектов обсуждается возможность отсрочки вплоть до 2031 и 2036 годов. Я бы не строил на этих отсрочках план. История последних лет показывает, что требования только ужесточаются, а рынок специалистов и поставщиков перегружается всегда ближе к дедлайну. Те, кто начал раньше, переходят спокойнее и дешевле.\u003c/p>\n\u003ch2 id=\"itog\">Итог\u003c/h2>\n\u003cp>Импортозамещение можно пройти как повинность и получить ту же инфраструктуру с другими логотипами. А можно использовать его, чтобы построить современную платформу со встроенной безопасностью и меньшей зависимостью от любого поставщика. Разница между этими вариантами ставится в самом начале: кто ведёт проект и с чего он начинается.\u003c/p>","image":"https://gdm2009.github.io/gorchakov-site/img/blog/importozameshchenie-i-ib-ukazy-166-250-1200.webp","thumb":"https://gdm2009.github.io/gorchakov-site/img/blog/importozameshchenie-i-ib-ukazy-166-250-440.webp","imageAlt":"Ноутбук на столе с результатами проверки после миграции и распечатанный чек-лист с отметками"},{"slug":"integraciya-s-gossistemami","title":"Интеграция с госсистемами: почему цифровая трансформация ломается между системами","description":"Сами системы обычно работают, а ломается то, что между ними. Шесть правил для проектов на стыке государства, банков и отраслевых платформ.","dateText":"11 ноября 2026","html":"\u003cp>За 20 лет я работал с системами, которые не живут в одиночку: исполнение федерального бюджета, система государственных и муниципальных платежей, дистанционное банковское обслуживание, цифровая экосистема нотариата, связанная с Госуслугами, ведомствами и сотнями банков. В каждом из этих проектов повторялось одно и то же. Сама система обычно работает. Ломается то, что между системами.\u003c/p>\n\u003cp>Внутри одной организации есть владелец, бюджет, команда и понятный руководитель, который принимает решения. На стыке двух организаций ничего этого нет. У ведомства свои сроки и свои форматы, у банка свои релизы и свои требования регулятора, у подрядчика свой договор. И именно там, где никто не отвечает за целое, живёт основная ценность трансформации. Гражданину всё равно, в какой системе лежит его документ. Ему важно, чтобы платёж увидели и чтобы его не попросили принести справку, которая уже есть у государства.\u003c/p>\n\u003cp>Ниже правила, которые я для себя вывел. Они простые, но в большинстве проектов, которые я видел, хотя бы одно из них нарушалось.\u003c/p>\n\u003ch2 id=\"1-u-styka-dolzhen-byt-vladelec\">1. У стыка должен быть владелец\u003c/h2>\n\u003cp>Интеграцию часто считают задачей, которую можно сделать и закрыть. На деле это продукт с собственным жизненным циклом. Меняются форматы, версии сервисов, сертификаты подписи, нормативная база. Если у стыка нет человека, который отвечает за его работу каждый день, через полгода он превращается в источник ручной работы и жалоб.\u003c/p>\n\u003cp>Поэтому я назначаю владельца не только системам, но и каждому внешнему взаимодействию: с ведомством, с банками, с платёжной инфраструктурой. У него есть бэклог, метрики и право приоритизировать доработки. И у него есть контакт по ту сторону, с которым можно созвониться до того, как проблема попадёт в официальную переписку.\u003c/p>\n\u003ch2 id=\"2-snachala-dogovorites-o-dannyh-potom-pishite-kod\">2. Сначала договоритесь о данных, потом пишите код\u003c/h2>\n\u003cp>Хороший пример того, как надо, — логика ГИС ГМП. У каждого начисления есть уникальный идентификатор, и платёж сопоставляется с начислением по нему, а не по совпадению суммы и фамилии. Когда такого общего ключа нет, стороны начинают сверять данные людьми, и автоматизация остаётся на бумаге.\u003c/p>\n\u003cp>До начала разработки нужно ответить на три вопроса. По какому ключу обе стороны узнают один и тот же объект: человека, документ, платёж. Чей справочник главный, если данные расходятся. И что происходит с записью, которую не удалось сопоставить: кто её разбирает и в какой срок. Если ответа на третий вопрос нет, система не готова, даже если тесты зелёные.\u003c/p>\n\u003ch2 id=\"3-schitaite-chto-drugaya-storona-nedostupna\">3. Считайте, что другая сторона недоступна\u003c/h2>\n\u003cp>Внешний сервис будет недоступен в самый неудобный момент: в конце года, в день налоговых платежей, во время плановых работ, о которых вас забыли предупредить. Архитектура должна переживать это без потери данных и без дублей. Это значит очереди и асинхронный обмен вместо прямых синхронных вызовов, повторную отправку, которая не создаёт двойных записей, и понятный статус для пользователя: «запрос отправлен, ждём ответа ведомства» вместо ошибки на экране.\u003c/p>\n\u003cp>Нотариус, бухгалтер или клиент банка не должны знать, что у смежной системы сейчас регламентные работы. Они должны видеть, что их действие принято и будет доведено до конца.\u003c/p>\n\u003ch2 id=\"4-yuridicheskaya-znachimost-zakladyvaetsya-v-arhitekturu\">4. Юридическая значимость закладывается в архитектуру\u003c/h2>\n\u003cp>В госсекторе и финансах обмен данными почти всегда имеет юридические последствия. Вопрос будет не «пришли ли данные», а «кто, когда и на основании чего совершил действие». Электронная подпись, неизменяемый журнал событий, хранение исходных сообщений и квитанций нельзя добавить в конце проекта. Их проектируют с первого дня, вместе с юристами и службой безопасности. Первый же спор с контрагентом покажет, насколько это было важно.\u003c/p>\n\u003ch2 id=\"5-reglament-menyaetsya-chasche-chem-vy-dumaete\">5. Регламент меняется чаще, чем вы думаете\u003c/h2>\n\u003cp>Форматы межведомственного взаимодействия, требования регулятора и правила банков меняются постоянно. Система, в которой формат обмена зашит в бизнес-логику, станет дорогой в сопровождении уже ко второму году. Я выношу всё взаимодействие с внешним миром в отдельный слой адаптеров с версионированием. Тогда переход на новую версию формата становится обычной задачей на спринт, а не проектом на квартал. На переходный период должны работать обе версии, потому что все участники никогда не переходят одновременно.\u003c/p>\n\u003ch2 id=\"6-izmeryaite-styk-a-ne-tolko-sistemu\">6. Измеряйте стык, а не только систему\u003c/h2>\n\u003cp>Обычный мониторинг показывает, что серверы живы. Этого мало. Для каждого внешнего взаимодействия я слежу за другими показателями:\u003c/p>\n\u003cul>\u003cli>доля операций, которые прошли автоматически, без ручного разбора;\u003c/li>\u003cli>время от действия пользователя до окончательного результата у другой стороны;\u003c/li>\u003cli>число застрявших и несопоставленных записей и их возраст;\u003c/li>\u003cli>обращения в поддержку, которые связаны с данным стыком.\u003c/li>\u003c/ul>\n\u003cp>Первый показатель самый честный. Если каждую десятую операцию кто-то доделывает руками, трансформация не состоялась, сколько бы красивых экранов ни было сделано.\u003c/p>\n\u003ch2 id=\"chto-iz-etogo-sleduet-dlya-rukovoditelya\">Что из этого следует для руководителя\u003c/h2>\n\u003cp>Когда мне приносят план трансформации, я прошу нарисовать не карту систем, а карту стыков: сколько внешних участников, какие данные идут туда и обратно, кто за каждый поток отвечает. В половине случаев после этого меняются и приоритеты, и бюджет. То, что выглядело технической деталью, оказывается главным риском проекта.\u003c/p>\n\u003cp>Короткий чек-лист для самопроверки:\u003c/p>\n\u003col>\u003cli>У каждого внешнего взаимодействия есть названный владелец.\u003c/li>\u003cli>Общий ключ данных и главный справочник согласованы со второй стороной письменно.\u003c/li>\u003cli>Система работает, когда смежник недоступен, и не создаёт дублей при повторе.\u003c/li>\u003cli>Для спорных ситуаций хранятся подписанные сообщения и журнал.\u003c/li>\u003cli>Формат обмена можно поменять, не трогая бизнес-логику.\u003c/li>\u003cli>Руководство видит долю автоматически прошедших операций, а не только аптайм.\u003c/li>\u003c/ol>\n\u003cp>Если хотя бы на два пункта ответ «нет», начинать стоит с них, а не с новой функциональности.\u003c/p>","image":"https://gdm2009.github.io/gorchakov-site/img/blog/integraciya-s-gossistemami-1200.webp","thumb":"https://gdm2009.github.io/gorchakov-site/img/blog/integraciya-s-gossistemami-440.webp","imageAlt":"Монитор с кодом и логом успешных запросов, на рамке стикер «works»"},{"slug":"korporativnyi-ii-v-zakrytom-konture","title":"Корпоративный ИИ в закрытом контуре: как внедрить языковую модель и не потерять данные","description":"В регулируемых отраслях вопрос не в том, нужен ли ИИ, а в том, как запустить его так, чтобы служба безопасности спала спокойно. Пять решений, от которых зависит успех.","dateText":"8 ноября 2026","html":"\u003cp>В регулируемых отраслях вопрос не в том, нужен ли ИИ, а в том, как его запустить так, чтобы служба безопасности спала спокойно. Делюсь тем, что понял на собственном внедрении.\u003c/p>\n\u003cp>Последние два года каждый разговор с руководством рано или поздно доходит до искусственного интеллекта. Обычно в одной из двух форм: «почему у нас до сих пор нет ИИ» или «запретите сотрудникам вставлять документы в чат-боты». Оба запроса справедливы, и оба решаются одним способом: собственным ИИ-сервисом внутри контура компании.\u003c/p>\n\u003cp>Мы внедрили такое решение на базе RAG и языковых моделей для работы со внутренней информацией. Ниже — не техническая инструкция, а решения, которые придётся принять руководителю, если он идёт по тому же пути.\u003c/p>\n\u003ch2 id=\"pochemu-publichnye-servisy-ne-podhodyat\">Почему публичные сервисы не подходят\u003c/h2>\n\u003cp>Дело не в качестве моделей. Дело в том, куда уходят данные. Договоры, персональные данные клиентов, сведения, составляющие профессиональную или банковскую тайну, внутренние регламенты. Для организации, которая работает по 152-ФЗ, владеет объектами КИИ или просто ценит свои знания, отправка таких данных во внешний сервис — неприемлемый риск.\u003c/p>\n\u003cp>При этом запрет без альтернативы не работает. Сотрудники уже поняли, насколько ИИ ускоряет рутину, и будут пользоваться им с личных телефонов. Единственный способ закрыть эту дыру — дать им инструмент не хуже, но внутри контура.\u003c/p>\n\u003ch2 id=\"kak-eto-ustroeno-esli-obyasnyat-pravleniyu\">Как это устроено, если объяснять правлению\u003c/h2>\n\u003cp>Языковая модель сама по себе ничего не знает о вашей компании. RAG — это схема, при которой система сначала находит в ваших документах фрагменты, относящиеся к вопросу, а потом просит модель ответить, опираясь только на них. Пользователь получает ответ со ссылками на источники и может проверить его за минуту.\u003c/p>\n\u003cp>Все четыре части — хранилище документов, поисковый индекс, модель и интерфейс — работают на ваших серверах. Модель берётся из числа открытых, которые можно развернуть у себя, или поставляется российским вендором в варианте для установки в контур заказчика. Ни один байт наружу не уходит.\u003c/p>\n\u003ch2 id=\"pyat-reshenii-ot-kotoryh-zavisit-uspeh\">Пять решений, от которых зависит успех\u003c/h2>\n\u003cp>\u003cstrong>1. Один процесс, а не «ИИ для всех».\u003c/strong> Начинать нужно с конкретной группы пользователей и конкретного корпуса документов. Например, поддержка отвечает на вопросы по регламентам или юристы ищут по базе разъяснений. На узкой задаче видно, работает ли система, а на широкой — только есть ли интерес.\u003c/p>\n\u003cp>\u003cstrong>2. Данные важнее модели.\u003c/strong> Большая часть работы уходит не на модель, а на документы: убрать устаревшие версии, распознать сканы, разметить, что действует, а что отменено. Если в базе лежат три редакции одного регламента, самая умная модель уверенно процитирует не ту.\u003c/p>\n\u003cp>\u003cstrong>3. Права доступа наследуются, а не добавляются потом.\u003c/strong> ИИ-помощник не должен показывать человеку то, что тот не видит в исходной системе. Фильтрация по правам должна работать на этапе поиска, до того как фрагмент попадёт в модель. Иначе вы построите самый удобный в истории компании канал утечки.\u003c/p>\n\u003cp>\u003cstrong>4. Ответ всегда с источником.\u003c/strong> Модели ошибаются, и это нужно принять как данность. Задача не в том, чтобы система никогда не ошибалась, а в том, чтобы ошибку можно было заметить. Ссылка на конкретный пункт документа и право модели сказать «в документах этого нет» — обязательные требования.\u003c/p>\n\u003cp>\u003cstrong>5. Набор контрольных вопросов до запуска.\u003c/strong> Соберите с экспертами несколько сотен реальных вопросов с правильными ответами. Прогоняйте их при каждой смене модели, настроек поиска или базы документов. Без этого вы не сможете ответить на вопрос «стало лучше или хуже?».\u003c/p>\n\u003ch2 id=\"chto-schitat-uspehom\">Что считать успехом\u003c/h2>\n\u003cp>Я сознательно не обещаю руководству сокращения штата. Это вредный ориентир: он превращает пользователей в противников проекта. Рабочие метрики другие:\u003c/p>\n\u003cul>\u003cli>время, за которое сотрудник находит нужный ответ;\u003c/li>\u003cli>доля ответов, которые эксперты признали корректными;\u003c/li>\u003cli>сколько людей пользуются системой через месяц после запуска, а не в первую неделю;\u003c/li>\u003cli>насколько уменьшилась нагрузка на ключевых экспертов, которых раньше дёргали одними и теми же вопросами.\u003c/li>\u003c/ul>\n\u003ch2 id=\"skolko-eto-stoit\">Сколько это стоит\u003c/h2>\n\u003cp>Самая заметная статья затрат — вычислительные мощности с графическими ускорителями. Но для пилота на одном процессе обычно хватает небольшой модели на одном-двух серверах. Покупать мощности под масштаб стоит после того, как пилот доказал пользу, а не до. Вторая статья — люди: инженер по данным и эксперт из бизнеса, который проверяет ответы. Без второго первый настроит систему, которая отвечает красиво, но неверно.\u003c/p>\n\u003ch2 id=\"vyvod\">Вывод\u003c/h2>\n\u003cp>Корпоративный ИИ в закрытом контуре — это уже не эксперимент, а нормальный ИТ-проект с понятной архитектурой. Риски в нём те же, что в любом проекте с чувствительными данными: доступы, качество данных, контроль результата. Компании, которые начнут с одного процесса сейчас, через год будут масштабировать работающее решение. Остальные будут бороться с теневым использованием чат-ботов.\u003c/p>","image":"https://gdm2009.github.io/gorchakov-site/img/blog/korporativnyi-ii-v-zakrytom-konture-1200.webp","thumb":"https://gdm2009.github.io/gorchakov-site/img/blog/korporativnyi-ii-v-zakrytom-konture-440.webp","imageAlt":"Монитор с кодом на Python и терминалом, перед ним блокнот с ручкой и кружка"},{"slug":"svoya-razrabotka-ili-podryadchik","title":"Своя разработка или подрядчик: когда компании пора строить ИТ-производство","description":"Собственная команда разработки — решение с понятной экономикой и понятными рисками. По каким признакам его принимать и как не утонуть на старте.","dateText":"5 ноября 2026","html":"\u003cp>Собственная команда разработки — не признак зрелости и не модная опция. Это решение с понятной экономикой и понятными рисками. Рассказываю, по каким признакам его принимать и как не утонуть на старте.\u003c/p>\n\u003cp>Мне дважды приходилось строить разработку внутри организации с нуля. Первый раз в «Мегаре», где мы создали in-house команду вместо того, чтобы покупать всё у партнёров. Второй раз в Федеральной нотариальной палате, где за несколько лет выросло ИТ-производство больше чем на сто человек, с DevOps и DevSecOps, своими стендами и релизным циклом. Ещё раньше я руководил собственной ИТ-компанией, то есть был тем самым подрядчиком, от которого заказчики потом уходили в in-house.\u003c/p>\n\u003cp>Поэтому у меня нет религиозной позиции. Своя разработка бывает лучшим решением, а бывает дорогой ошибкой. Разница определяется не размером компании, а характером задачи.\u003c/p>\n\u003ch2 id=\"kogda-svoya-komanda-okupaetsya\">Когда своя команда окупается\u003c/h2>\n\u003cp>Я задаю руководителю четыре вопроса.\u003c/p>\n\u003cp>\u003cstrong>Цифровой продукт — это ядро бизнеса или обслуживающая функция?\u003c/strong> Если через систему проходит основной поток работы, клиентов или денег, то знание о ней — стратегический актив. Отдавать его наружу всё равно что отдать подрядчику бухгалтерию вместе с ключами от сейфа.\u003c/p>\n\u003cp>\u003cstrong>Как часто меняются требования?\u003c/strong> Если систему достаточно сделать один раз и потом поддерживать, подрядчик справится лучше и дешевле. Если изменения идут каждую неделю, потому что меняются законы, продукты и интеграции, то стоимость коммуникации с внешней командой съест всю экономию.\u003c/p>\n\u003cp>\u003cstrong>Сколько у вас внешних интеграций?\u003c/strong> Каждая интеграция с ведомством, банком или партнёром — это постоянный поток изменений, инцидентов и согласований. Подрядчик работает по заявкам, а здесь нужна команда, которая живёт внутри контекста.\u003c/p>\n\u003cp>\u003cstrong>Насколько жёстко вас регулируют?\u003c/strong> Банки, госсектор и операторы КИИ обязаны контролировать код, доступы и цепочку поставки ПО. С внешней командой это возможно, но требует такого уровня контроля, что разница в стоимости становится небольшой.\u003c/p>\n\u003cp>Если на три вопроса из четырёх ответ «да», пора считать свою команду. Если «да» только на один, скорее всего, вам нужен хороший подрядчик и сильный архитектор на своей стороне.\u003c/p>\n\u003ch2 id=\"ekonomika-kotoruyu-obychno-ne-schitayut\">Экономика, которую обычно не считают\u003c/h2>\n\u003cp>Сравнивая in-house и аутсорс, обычно сравнивают ставку разработчика в штате и у подрядчика. Это неправильное сравнение. Реальная стоимость складывается из других вещей:\u003c/p>\n\u003cul>\u003cli>времени, которое уходит на объяснение задачи и приёмку;\u003c/li>\u003cli>потерь знаний при ротации людей у подрядчика;\u003c/li>\u003cli>стоимости ошибок, которые всплывают на проде, потому что внешняя команда не знала, как устроен процесс;\u003c/li>\u003cli>зависимости: подрядчик, который один знает систему, может диктовать цену.\u003c/li>\u003c/ul>\n\u003cp>У своей команды тоже есть скрытые расходы: найм, удержание, руководители, инфраструктура, процессы безопасности. Но эти расходы вы контролируете сами, а знания остаются в компании.\u003c/p>\n\u003ch2 id=\"kak-ya-stroyu-it-proizvodstvo-pyat-etapov\">Как я строю ИТ-производство: пять этапов\u003c/h2>\n\u003cp>\u003cstrong>1. Сначала голова, потом руки.\u003c/strong> Первыми нанимаю архитектора, сильного техлида и владельца продукта со стороны бизнеса. Нанять пятьдесят разработчиков, а потом думать, чем их занять, — самая дорогая ошибка из тех, что я видел.\u003c/p>\n\u003cp>\u003cstrong>2. Подрядчики остаются, но меняют роль.\u003c/strong> Резко разрывать отношения с подрядчиком нельзя: знания о системе пока у него. Я перевожу его в режим совместной работы, когда свои люди входят в его команду, учатся, берут модули на себя, а объём работ подрядчика сокращается по плану.\u003c/p>\n\u003cp>\u003cstrong>3. Платформа раньше фич.\u003c/strong> Сборка, тестирование, развёртывание, мониторинг, управление секретами. Если этого нет, каждая следующая команда тратит треть времени на ручную рутину. В ФНП мы сразу закладывали DevOps и DevSecOps, потому что в регулируемой среде безопасность, добавленная потом, обходится в разы дороже.\u003c/p>\n\u003cp>\u003cstrong>4. Команды по продуктам, а не по технологиям.\u003c/strong> Команда отвечает за кусок бизнеса целиком, от интерфейса до базы данных. Деление на «отдел фронтенда» и «отдел бэкенда» порождает очереди и взаимные обвинения.\u003c/p>\n\u003cp>\u003cstrong>5. Метрики производства с первого месяца.\u003c/strong> Как часто выходят релизы, сколько времени задача идёт от идеи до пользователя, какой процент релизов приводит к инцидентам, как быстро восстанавливаемся. Без этих цифр разговор о производительности команды превращается в обмен ощущениями.\u003c/p>\n\u003ch2 id=\"oshibki-kotoryh-stoit-izbegat\">Ошибки, которых стоит избегать\u003c/h2>\n\u003cp>\u003cstrong>Копировать Big Tech.\u003c/strong> Процессы крупной технологической компании рассчитаны на тысячи инженеров. Команде из тридцати человек они только мешают.\u003c/p>\n\u003cp>\u003cstrong>Экономить на руководителях.\u003c/strong> Без тимлидов и инженерных менеджеров разработчики быстро перестают понимать, зачем они делают то, что делают, и уходят.\u003c/p>\n\u003cp>\u003cstrong>Ждать результата через квартал.\u003c/strong> Реальный выход на устойчивую скорость занимает год и больше. Это нужно честно проговорить с руководством до старта, иначе через полгода проект закроют как неудачный.\u003c/p>\n\u003cp>\u003cstrong>Забыть про культуру.\u003c/strong> Инженеры остаются там, где есть интересные задачи, сильные коллеги и возможность влиять на продукт. Зарплата важна, но удерживает не она.\u003c/p>\n\u003ch2 id=\"vyvod\">Вывод\u003c/h2>\n\u003cp>Своя разработка — это не про экономию на ставках. Это про контроль над тем, что для компании критично: скорость изменений, знание системы, безопасность. Если эти вещи для вас стратегические, команду стоит строить, и строить последовательно. Если нет, лучше вложиться в сильного архитектора на своей стороне и хорошо выстроенные отношения с подрядчиком.\u003c/p>","image":"https://gdm2009.github.io/gorchakov-site/img/blog/svoya-razrabotka-ili-podryadchik-1200.webp","thumb":"https://gdm2009.github.io/gorchakov-site/img/blog/svoya-razrabotka-ili-podryadchik-440.webp","imageAlt":"Рабочее место разработчика вечером: монитор с кодом, клавиатура и наушники"},{"slug":"proekty-lomayutsya-na-stykah","title":"Я сидел по все стороны стола: почему большие ИТ-проекты ломаются на стыках","description":"Заказчик, вендор и интегратор честно делают свою работу, а проект всё равно срывается. Где теряется результат и как договариваться, чтобы его не потерять.","dateText":"3 ноября 2026","html":"\u003cp>Заказчик, вендор и интегратор часто честно делают свою работу, а проект всё равно срывается. Разбираю, где именно теряется результат и как договариваться так, чтобы его не потерять.\u003c/p>\n\u003cp>За двадцать лет в ИТ я побывал во всех ролях, которые есть на рынке крупных проектов. В BSS я был вендором и продавал продукт банкам вроде Raiffeisen, Nordea и Intesa. В «Авикомпе» и «Мегаре» был интегратором и сдавал системы Минфину и Казначейству. В ПСБ и Федеральной нотариальной палате был заказчиком и принимал работу у подрядчиков. А ещё был владельцем собственной ИТ-компании и сам платил зарплаты, когда проект затягивался.\u003c/p>\n\u003cp>Из этого опыта я вынес неудобный вывод. Большинство провалов не связано с тем, что кто-то плохо работает. Каждая сторона обычно делает ровно то, за что ей платят. Проблема в том, что платят им за разное.\u003c/p>\n\u003ch2 id=\"u-kazhdoi-storony-svoi-schetchik\">У каждой стороны свой счётчик\u003c/h2>\n\u003cp>\u003cstrong>Вендор\u003c/strong> зарабатывает на лицензиях и поддержке. Ему выгодно, чтобы заказчик подстроил процессы под продукт, а не наоборот. Каждая доработка под конкретного клиента усложняет выпуск новых версий.\u003c/p>\n\u003cp>\u003cstrong>Интегратор\u003c/strong> зарабатывает на человеко-часах и подписанных актах. Его цель в том, чтобы этап приняли в срок. Если система формально соответствует ТЗ, но люди в ней не работают, к интегратору юридических претензий нет.\u003c/p>\n\u003cp>\u003cstrong>Заказчик\u003c/strong> отчитывается перед руководством освоением бюджета и соблюдением сроков. В госсекторе к этому добавляется контрактная система: изменить объём работ после торгов сложно, даже если все понимают, что изначальный план устарел.\u003c/p>\n\u003cp>В итоге все три стороны могут выполнить свои обязательства на 100%, а бизнес не получит ничего. Я видел системы, которые приняли без единого замечания и которыми потом никто не пользовался.\u003c/p>\n\u003ch2 id=\"tri-styka-na-kotoryh-teryaetsya-rezultat\">Три стыка, на которых теряется результат\u003c/h2>\n\u003cp>\u003cstrong>Первый стык: техническое задание.\u003c/strong> ТЗ пишется тогда, когда о задаче известно меньше всего. Дальше документ перестаёт быть описанием того, что нужно, и превращается в оружие. Заказчик трактует его широко, подрядчик узко, и половина совещаний уходит на спор о формулировках.\u003c/p>\n\u003cp>\u003cstrong>Второй стык: архитектура.\u003c/strong> Когда в проекте два-три подрядчика, каждый отвечает за свой кусок, а за то, как куски соединяются, не отвечает никто. Интеграции начинают тестировать в конце, и там же выясняется, что форматы данных не совпадают, справочники ведутся в двух местах, а статусы документов понимаются по-разному.\u003c/p>\n\u003cp>\u003cstrong>Третий стык: передача в эксплуатацию.\u003c/strong> Проектная команда сдала систему и ушла. Команда сопровождения видит код впервые. Документация написана для приёмки, а не для работы. Через год дешевле кажется переписать, чем разобраться.\u003c/p>\n\u003ch2 id=\"chto-ya-delayu-kogda-sizhu-na-storone-zakazchika\">Что я делаю, когда сижу на стороне заказчика\u003c/h2>\n\u003cp>Когда в ФНП мы строили цифровую экосистему нотариата на 30 тысяч пользователей, с интеграциями с Госуслугами, ведомствами и банками, я опирался на несколько правил. Они не требуют денег, требуют дисциплины.\u003c/p>\n\u003col>\u003cli>\u003cstrong>Архитектура принадлежит заказчику.\u003c/strong> Архитектор всегда сидит на стороне того, кто будет жить с системой десять лет. Подрядчики предлагают решения, но карта систем, модель данных и контракты интеграций живут у заказчика. Иначе смена подрядчика превращается в археологию.\u003c/li>\u003cli>\u003cstrong>Владелец продукта настоящий, а не номинальный.\u003c/strong> У него есть время и право решать. Если каждый вопрос подрядчика ждёт согласования неделю, проект теряет месяцы и никто их не замечает.\u003c/li>\u003cli>\u003cstrong>Принимаем работающее, а не документы.\u003c/strong> Демонстрация на реальных данных каждые две-четыре недели стоит больше любого статус-отчёта. Даже в жёстком госконтракте можно разбить этапы так, чтобы каждый заканчивался полезной функцией.\u003c/li>\u003cli>\u003cstrong>Интеграции первыми.\u003c/strong> Самый рискованный кусок проекта делаем в начале, пока есть время передумать. Сквозной сценарий «из конца в конец», даже если кривой, полезнее десяти идеальных экранов.\u003c/li>\u003cli>\u003cstrong>План выхода прописан заранее.\u003c/strong> Исходный код, сборка, стенды, документация для эксплуатации. Всё, что нужно, чтобы завтра передать систему другой команде. Сильные подрядчики на это не обижаются: их и так не хочется менять.\u003c/li>\u003c/ol>\n\u003ch2 id=\"chemu-menya-nauchila-rabota-vendorom-i-integratorom\">Чему меня научила работа вендором и интегратором\u003c/h2>\n\u003cp>Когда сам продаёшь проекты, перестаёшь считать подрядчика противником. У него есть свои рациональные страхи: раздувание объёма, задержка оплаты, заказчик, который не может принять решение. Если эти страхи снять, подрядчик начинает предлагать, а не обороняться.\u003c/p>\n\u003cp>Поэтому я стараюсь договариваться об общей метрике успеха, которая видна всем трём сторонам. Не «сдано 14 подсистем», а «доля документов, которые проходят без ручного вмешательства» или «время от заявки до результата». Когда у всех одна цифра на доске, споры о формулировках ТЗ заметно стихают.\u003c/p>\n\u003cp>И ещё одно. Опыт владельца ИТ-компании научил меня считать экономику подрядчика. Если контракт заведомо убыточен для исполнителя, проект будет сделан самыми дешёвыми людьми самым дешёвым способом. Победа на торгах с демпингом в сорок процентов часто обходится заказчику дороже всех.\u003c/p>\n\u003ch2 id=\"pyat-priznakov-chto-proekt-uzhe-slomalsya-na-styke\">Пять признаков, что проект уже сломался на стыке\u003c/h2>\n\u003cul>\u003cli>На совещаниях чаще обсуждают пункты договора, чем пользователей.\u003c/li>\u003cli>Никто не может нарисовать на доске полную схему потоков данных.\u003c/li>\u003cli>Первая демонстрация на реальных данных запланирована на последний месяц.\u003c/li>\u003cli>Решения принимаются письмами с десятью адресатами в копии.\u003c/li>\u003cli>Команда сопровождения ещё не назначена.\u003c/li>\u003c/ul>\n\u003cp>Если совпало три из пяти, проекту нужен взгляд со стороны, и чем раньше, тем дешевле. Хорошая новость в том, что стыки чинятся договорённостями и правилами игры, а не новым бюджетом.\u003c/p>","image":"https://gdm2009.github.io/gorchakov-site/img/blog/proekty-lomayutsya-na-stykah-1200.webp","thumb":"https://gdm2009.github.io/gorchakov-site/img/blog/proekty-lomayutsya-na-stykah-440.webp","imageAlt":"Монитор со страницей код-ревью и принятым пул-реквестом, на переднем плане клавиатура"},{"slug":"o-chem-etot-blog","title":"О чём этот блог: ИТ-стратегия, госсистемы, финтех и корпоративный ИИ","description":"О чём пишет Александр Горчаков: цифровая трансформация государства и финансов, ИТ-команды, интеграция с госсистемами, ИИ в закрытом контуре.","dateText":"31 октября 2026","html":"\u003cp>Меня зовут Александр Горчаков. Больше 20 лет я строю цифровые системы на стыке государства и финансов: от ИТ-стратегии до работающих продуктов. Этот блог — место, где я разбираю практику таких проектов.\u003c/p>\n\u003ch2 id=\"o-chem-ya-budu-pisat\">О чём я буду писать\u003c/h2>\n\u003cul>\u003cli>\u003cstrong>ИТ-стратегия и цифровая трансформация.\u003c/strong> Как строить дорожную карту, считать бюджет и не потерять управляемость на масштабе отрасли.\u003c/li>\u003cli>\u003cstrong>Интеграция с государственными системами.\u003c/strong> Госуслуги, ГИС ГМП, обмен с ведомствами и банками: что важно учесть до начала проекта.\u003c/li>\u003cli>\u003cstrong>Цифровые продукты для финансов.\u003c/strong> Дистанционное банковское обслуживание и digital banking для бизнеса.\u003c/li>\u003cli>\u003cstrong>Корпоративный ИИ в закрытом контуре.\u003c/strong> RAG и LLM для работы с внутренними знаниями там, где данные нельзя выносить наружу.\u003c/li>\u003cli>\u003cstrong>Собственная разработка и ИТ-команда с нуля.\u003c/strong> Процессы, DevOps и DevSecOps, рост производства до сотни человек и больше.\u003c/li>\u003cli>\u003cstrong>Информационная безопасность и импортозамещение.\u003c/strong> Переход на отечественный и открытый стек без остановки работы.\u003c/li>\u003c/ul>\n\u003ch2 id=\"na-chem-osnovan-moi-vzglyad\">На чём основан мой взгляд\u003c/h2>\n\u003cp>Я был на всех сторонах рынка: вендором, интегратором, заказчиком и владельцем ИТ-компании. Автоматизировал исполнение бюджета для Минфина и Казначейства, работал с ГИС ГМП, делал интернет-банк для юридических лиц и создавал цифровую экосистему нотариата, которой пользуются больше 30 000 человек.\u003c/p>\n\u003cp>Поэтому в статьях не будет пересказа методологий. Будут задачи, решения и то, что из них получилось.\u003c/p>\n\u003ch2 id=\"dlya-kogo-etot-blog\">Для кого этот блог\u003c/h2>\n\u003cp>Для руководителей, которые отвечают за ИТ в госсекторе, банках и крупных компаниях, и для тех, кто принимает решения о цифровых проектах: собственников, членов советов директоров, руководителей интеграторов.\u003c/p>\n\u003cp>Новые материалы выходят регулярно. Если хотите обсудить свою задачу, загляните в кабинет: там собраны кейсы, услуги и контакты.\u003c/p>","image":"https://gdm2009.github.io/gorchakov-site/img/blog/o-chem-etot-blog-1200.webp","thumb":"https://gdm2009.github.io/gorchakov-site/img/blog/o-chem-etot-blog-440.webp","imageAlt":"Рабочий стол с открытым ноутбуком, блокнотом и чашкой кофе при дневном свете"}];
+const BLOG_URL = "https://gdm2009.github.io/gorchakov-site/blog/";
+/* Файлы первой загрузки «Нейроигры» с размерами в байтах: [путь, размер]. Список подставляет сборщик. */
+const GAME_FILES = [["assets/index-yP1iB3iA.js",3815584],["achievements/glyphs.ktx",2926],["areas/areas-compressed.glb",548628],["areas/satanStar.ktx",1915],["assets/dist-BiW6BJVu.js",27737],["assets/index-BM1b7eY0.css",38958],["assets/rapier-DfGXH9Do.js",184515],["assets/rapier_wasm3d_bg-bb0TTxsO.wasm",1570176],["basis/basis_transcoder.js",57533],["basis/basis_transcoder.wasm",527333],["behindTheScene/stars.ktx",18026],["benches/benches-compressed.glb",7080],["birchTrees/birchTreesReferences-compressed.glb",23980],["birchTrees/birchTreesVisual-compressed.glb",5084],["bricks/bricks-compressed.glb",7456],["bushes/bushesReferences-compressed.glb",25588],["career/careerFreelancer.ktx",21376],["career/careerHetic.ktx",19936],["career/careerIRLTeacher.ktx",18736],["career/careerImmersiveGarden.ktx",19936],["career/careerOnlineTeacher.ktx",11296],["career/careerUzik.ktx",20416],["cherryTrees/cherryTreesReferences-compressed.glb",19624],["cherryTrees/cherryTreesVisual-compressed.glb",5232],["draco/draco_decoder.wasm",285747],["draco/draco_wasm_wrapper.js",58763],["explosiveCrates/explosiveCrates-compressed.glb",8588],["fences/fences-compressed.glb",8692],["floor/slabs.ktx",12715],["flowers/flowersReferences-compressed.glb",19412],["foliage/foliageSDF.ktx",3076],["fonts/Pally-Medium.woff2",22604],["index.html",59070],["interactivePoints/interactivePointsKeyIconA.ktx",819],["interactivePoints/interactivePointsKeyIconCross.ktx",773],["interactivePoints/interactivePointsKeyIconEnter.ktx",813],["intro/sound.ktx",947],["jukebox/jukeboxMusicNotes.ktx",627],["lab/images/svc-cio-mini.ktx",2339],["lab/images/svc-dd-mini.ktx",2080],["lab/images/svc-diagnostika-mini.ktx",2179],["lab/images/svc-diagnostika.ktx",6731],["lab/images/svc-razrabotka-mini.ktx",2164],["lab/images/svc-sovetnik-mini.ktx",2254],["lab/images/svc-strategiya-mini.ktx",2364],["lab/images/svc-strategiya.ktx",7352],["lanterns/lanterns-compressed.glb",11388],["oakTrees/oakTreesReferences-compressed.glb",21572],["oakTrees/oakTreesVisual-compressed.glb",5188],["overlay/overlayPattern.ktx",16672],["palette.ktx",1504],["playground/playgroundPhysical-compressed.glb",1904],["playground/playgroundVisual-compressed.glb",27536],["poleLights/poleLights-compressed.glb",43204],["projects/images/notariat-1.ktx",12308],["projects/images/notariat-2.ktx",7606],["respawns/respawnsReferences-compressed.glb",2836],["scenery/scenery-compressed.glb",47892],["sounds/paper/PaperMovement_fNAyV_01-2.mp3",11395],["sounds/paper/PaperMovement_fNAyV_01-3.mp3",12459],["sounds/reveal/reveal-1.mp3",48951],["sounds/stoneSlides/stoneSlideIn.mp3",15188],["sounds/stoneSlides/stoneSlideOut.mp3",11977],["sounds/thunder/near/Lightning-Streak-with-Thunder-Crash_TTX028903.mp3",55574],["sounds/thunder/near/THUNDER_GEN-HDF-23300.mp3",54672],["sounds/thunder/near/ThunderSharpStrikingRumblingCrackling_JMDKp_04.mp3",34627],["sounds/vehicle/energy/Energy_-_force_field_8_loop.mp3",118546],["sounds/vehicle/floor/wheels-on-pebbles-road.mp3",153547],["sounds/vehicle/springs/HandleSqueak_BW.60329.mp3",10509],["sounds/vehicle/springs/SpringMetalMovements_1u54Y_01.mp3",10405],["sounds/vehicle/suspensions/Robotic_Lifeforms_2_-_Air_Source_-_Piston_Studio_Chair_07.mp3",13391],["terrain/terrain-compressed.glb",26208],["terrain/terrain.ktx",350064],["timeMachine/timeMachineScreenFolio.ktx",3218],["timeMachine/timeMachineScreenMGS.ktx",5372],["tornado/tornadoPathReferences-compressed.glb",1808],["ui/map.svg",8824],["vehicle/default-compressed.glb",34824],["whispers/whisperFlame.ktx",8512]];
+/* Видео из Higgsfield. Пустая строка = вместо ролика показывается анимация, нарисованная кодом. */
+const MEDIA = {
+  intro: "https://d8j0ntlcm91z4.cloudfront.net/user_39hHNq3ejMg0YQhPOSmhgcgsI0v/hf_20261114_130429_d2e4a431-05b8-4699-b35d-06c50231cb69.mp4",
+  ambient: ""
+};
+/* ========================================================================== */
+
+const $ = (s, r = document) => r.querySelector(s);
+const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const reduce = matchMedia("(prefers-reduced-motion:reduce)").matches;
+const NOTE = '<span class="note">Пример текста. Замените на свой.</span>';
+
+/* ---------- город за окном ---------- */
+(function city() {
+  const c = $("#city canvas"), g = c.getContext("2d"), W = c.width, H = c.height;
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const sky = g.createLinearGradient(0, 0, 0, H);
+  sky.addColorStop(0, "#0b1020"); sky.addColorStop(.45, "#2a2f55"); sky.addColorStop(.7, "#c8647a"); sky.addColorStop(.86, "#ffb27a"); sky.addColorStop(1, "#ffe2b0");
+  g.fillStyle = sky; g.fillRect(0, 0, W, H);
+  for (let i = 0; i < 260; i++) { g.fillStyle = "rgba(255,255,255," + (rnd() * .7) + ")"; g.fillRect(rnd() * W, rnd() * H * .45, 2, 2); }
+  const sun = g.createRadialGradient(W * .62, H * .93, 10, W * .62, H * .93, 520);
+  sun.addColorStop(0, "rgba(255,244,214,1)"); sun.addColorStop(.2, "rgba(255,190,130,.7)"); sun.addColorStop(1, "rgba(255,150,100,0)");
+  g.fillStyle = sun; g.fillRect(0, 0, W, H);
+  g.strokeStyle = "rgba(232,240,242,.5)"; g.lineWidth = 3; g.beginPath(); g.ellipse(W * .5, H * 1.5, W * .75, H * 1.25, 0, Math.PI * 1.1, Math.PI * 1.9); g.stroke();
+  g.lineWidth = 1; g.beginPath(); g.ellipse(W * .5, H * 1.5, W * .78, H * 1.3, 0, Math.PI * 1.1, Math.PI * 1.9); g.stroke();
+  [["#3a3358", .55, 46], ["#231f3a", .42, 38], ["#0e0f1b", .3, 30]].forEach(([col, hMax, n], layer) => {
+    for (let i = 0; i < n; i++) {
+      const w = 30 + rnd() * 70, x = rnd() * W, h = H * (.12 + rnd() * hMax), y = H - h;
+      g.fillStyle = col; g.beginPath();
+      const t = rnd();
+      if (t < .35) { g.moveTo(x, H); g.lineTo(x + w * .15, y); g.lineTo(x + w * .85, y); g.lineTo(x + w, H); }
+      else if (t < .6) { g.moveTo(x, H); g.lineTo(x, y + w); g.quadraticCurveTo(x + w / 2, y - w * .6, x + w, y + w); g.lineTo(x + w, H); }
+      else { g.rect(x, y, w, h); g.rect(x + w * .45, y - h * .12, w * .1, h * .12); }
+      g.fill();
+      if (layer > 0) for (let k = 0; k < h / 14; k++) if (rnd() < .5) { g.fillStyle = rnd() < .7 ? "rgba(255,214,160,.75)" : "rgba(166,245,227,.8)"; g.fillRect(x + 6 + rnd() * (w - 14), y + 10 + k * 14, 5, 3); }
+    }
+  });
+  for (let i = 0; i < 5; i++) { const y = H * (.5 + i * .07); g.strokeStyle = "rgba(255,226,176,.35)"; g.lineWidth = 2; g.setLineDash([3, 22 + i * 6]); g.beginPath(); g.moveTo(0, y + 30); g.quadraticCurveTo(W / 2, y - 40, W, y + 20); g.stroke(); }
+  g.setLineDash([]);
+})();
+
+/* ---------- 3D-голограмма на столе ---------- */
+const holo = (function () {
+  const c = $("#holo canvas"), g = c.getContext("2d"), f = (1 + Math.sqrt(5)) / 2;
+  const V = [[-1, f, 0], [1, f, 0], [-1, -f, 0], [1, -f, 0], [0, -1, f], [0, 1, f], [0, -1, -f], [0, 1, -f], [f, 0, -1], [f, 0, 1], [-f, 0, -1], [-f, 0, 1]];
+  const E = []; for (let i = 0; i < 12; i++) for (let j = i + 1; j < 12; j++) { const d = Math.hypot(V[i][0] - V[j][0], V[i][1] - V[j][1], V[i][2] - V[j][2]); if (Math.abs(d - 2) < .01) E.push([i, j]); }
+  return function draw(t) {
+    g.clearRect(0, 0, 300, 300);
+    const a = t * .0006, b = t * .0004, ca = Math.cos(a), sa = Math.sin(a), cb = Math.cos(b), sb = Math.sin(b);
+    const P = V.map(([x, y, z]) => { const x1 = x * ca - z * sa, z1 = x * sa + z * ca, y1 = y * cb - z1 * sb, z2 = y * sb + z1 * cb, k = 240 / (5 - z2); return [150 + x1 * k * .9, 140 + y1 * k * .9, z2]; });
+    g.lineWidth = 1.6;
+    E.forEach(([i, j]) => { const d = (P[i][2] + P[j][2]) / 2; g.strokeStyle = "rgba(166,245,227," + (.35 + (d + 2) * .16) + ")"; g.beginPath(); g.moveTo(P[i][0], P[i][1]); g.lineTo(P[j][0], P[j][1]); g.stroke(); });
+    P.forEach(p => { g.fillStyle = "#ff9a66"; g.beginPath(); g.arc(p[0], p[1], 2.4 + p[2] * .5, 0, 7); g.fill(); });
+    const grad = g.createLinearGradient(0, 230, 0, 300); grad.addColorStop(0, "rgba(166,245,227,0)"); grad.addColorStop(1, "rgba(166,245,227,.35)");
+    g.fillStyle = grad; g.beginPath(); g.moveTo(60, 230); g.lineTo(240, 230); g.lineTo(190, 300); g.lineTo(110, 300); g.fill();
+  };
+})();
+
+/* ---------- камера ---------- */
+const P = 1400, world = $("#world"), stage = $("#stage");
+const cam = { tz: -2600, rx: -4, ry: -30, cy: 120 }, tgt = { tz: 0, rx: 0, ry: 0, cy: 0 };
+let view = "room", mx = 0, my = 0, settled = false;
+/* Телефон в вертикальном положении: экран компьютера становится узким и высоким, чтобы текст читался без увеличения. */
+let OSW = 960, OSH = 600, MOB = false;
+function layout() {
+  const w = innerWidth, h = innerHeight; MOB = w < 700 && h > w;
+  OSW = MOB ? 420 : 960; OSH = MOB ? Math.round(Math.max(560, Math.min(860, (h - 64) / (w * .97 / 420)))) : 600;
+  document.body.classList.toggle("mob", MOB);
+  document.documentElement.style.setProperty("--osw", OSW + "px"); document.documentElement.style.setProperty("--osh", OSH + "px");
+}
+layout(); addEventListener("resize", layout);
+function fit() {
+  const w = stage.clientWidth, h = stage.clientHeight;
+  const sRoom = MOB ? Math.min(w / (OSW + 240), h / (OSH + 620)) : Math.min(w / 2150, h / 1250), sDesk = Math.min(w * .97 / OSW, (h - 64) / OSH);
+  return { room: P * (1 - 1 / sRoom), desk: P * (1 - 1 / sDesk), sDesk };
+}
+function frame(t) {
+  const f = fit();
+  if (view === "desk") { tgt.tz = f.desk; tgt.rx = 0; tgt.ry = 0; tgt.cy = -28 / f.sDesk + (600 - OSH) / 2; }
+  else { tgt.tz = f.room; tgt.rx = -11 + my * -3; tgt.ry = (reduce ? 14 : Math.sin(t * .00022) * 17) + mx * 6; tgt.cy = MOB ? 60 : 150; }
+  const k = reduce ? 1 : .06; let far = 0;
+  for (const p in cam) { const d = tgt[p] - cam[p]; far = Math.max(far, Math.abs(d)); cam[p] += d * k; }
+  if (view === "desk" && far < .05) { Object.assign(cam, tgt); settled = true; } else settled = false;
+  world.style.transform = "translateZ(" + cam.tz.toFixed(2) + "px) rotateX(" + cam.rx.toFixed(3) + "deg) rotateY(" + cam.ry.toFixed(3) + "deg) translateY(" + (-cam.cy).toFixed(2) + "px)";
+  holo(t);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+addEventListener("pointermove", e => { mx = e.clientX / innerWidth * 2 - 1; my = e.clientY / innerHeight * 2 - 1; });
+function go(v) { view = v; document.body.classList.toggle("desk", v === "desk"); whoosh(v === "desk"); if (v === "desk") { const first = $("#icons .ico"); first && first.focus({ preventScroll: true }); } }
+$("#tap").addEventListener("click", () => go("desk"));
+$("#back").addEventListener("click", () => go("room"));
+stage.addEventListener("click", e => { if (view === "desk" && e.target.isConnected && !e.target.closest("#screen")) go("room"); });
+addEventListener("keydown", e => { if (e.key === "Escape" && view === "desk") go("room"); });
+
+/* ---------- звук (синтезируется в браузере) ---------- */
+let ac = null, master = null, soundOn = false;
+function setSound(on) {
+  soundOn = on;
+  try {
+    if (on && !ac) {
+      ac = new (window.AudioContext || window.webkitAudioContext)(); master = ac.createGain(); master.connect(ac.destination);
+      [55, 82.5, 110.4].forEach((fq, i) => { const o = ac.createOscillator(), g = ac.createGain(); o.type = i ? "sine" : "triangle"; o.frequency.value = fq; g.gain.value = .018; o.connect(g); g.connect(master); o.start(); });
+    }
+    if (ac) { master.gain.value = on ? 1 : 0; if (on) ac.resume(); }
+  } catch (err) { soundOn = false; }
+  $("#sound").textContent = "Звук: " + (soundOn ? "вкл" : "выкл"); $("#sound").setAttribute("aria-pressed", soundOn);
+}
+function tone(f0, f1, dur, vol) {
+  if (!soundOn || !ac) return;
+  const o = ac.createOscillator(), g = ac.createGain(), n = ac.currentTime;
+  o.type = "sine"; o.frequency.setValueAtTime(f0, n); o.frequency.exponentialRampToValueAtTime(f1, n + dur);
+  g.gain.setValueAtTime(vol, n); g.gain.exponentialRampToValueAtTime(.0001, n + dur); o.connect(g); g.connect(master); o.start(n); o.stop(n + dur);
+}
+const blip = () => tone(880, 1320, .09, .05), whoosh = inn => inn ? tone(120, 520, .7, .06) : tone(520, 120, .7, .06);
+$("#sound").addEventListener("click", () => setSound(!soundOn));
+
+/* ---------- приложения AURA OS ---------- */
+const ICON = {
+  about: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1-5 15-5 16 0"/>',
+  projects: '<rect x="3" y="4" width="8" height="7" rx="1.5"/><rect x="13" y="4" width="8" height="7" rx="1.5"/><rect x="3" y="13" width="8" height="7" rx="1.5"/><rect x="13" y="13" width="8" height="7" rx="1.5"/>',
+  exp: '<path d="M6 3v18M6 6h9l-2 3 2 3H6"/>',
+  services: '<path d="M4 7h16M4 12h16M4 17h10"/><circle cx="19" cy="17" r="2"/>',
+  blog: '<path d="M5 3h11l3 3v15H5z"/><path d="M8 9h8M8 13h8M8 17h5"/>',
+  contact: '<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 8l9 6 9-6"/>',
+  neuro: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/><path d="M3.3 10.5l6.3 1M20.7 10.5l-6.3 1M12 14.5V21"/>'
+};
+function thumb(cv, hue, animated) {
+  const g = cv.getContext("2d"), W = cv.width, H = cv.height; let t = hue;
+  (function d() {
+    g.fillStyle = "#0c1118"; g.fillRect(0, 0, W, H);
+    for (let i = 0; i < 7; i++) { g.strokeStyle = "hsla(" + (hue + i * 9) + ",80%,72%," + (.25 + i * .09) + ")"; g.lineWidth = 1.5; g.beginPath(); for (let x = 0; x <= W; x += 8) { const y = H / 2 + Math.sin(x * .02 + t * .02 + i * .7) * (10 + i * 5) + Math.cos(x * .008 + i) * 12; x ? g.lineTo(x, y) : g.moveTo(x, y); } g.stroke(); }
+    t++; if (animated && cv.isConnected && !reduce) requestAnimationFrame(d);
+  })();
+}
+const APPS = {
+  about: { title: "Обо мне", w: 560, h: 460, render(b) {
+    b.innerHTML = (CONTENT.photo ? "<img class='me' src='" + esc(CONTENT.photo) + "' alt='" + esc(CONTENT.name) + "' width='160' height='200' onerror='this.remove()'>" : "") + "<h2>" + esc(CONTENT.name) + "</h2><p style='color:var(--holo)'>" + esc(CONTENT.role) + "</p>" + CONTENT.about.map(p => "<p>" + esc(p) + "</p>").join("") + "<div class='facts'>" + CONTENT.facts.map(f => "<div><b>" + esc(f[0]) + "</b><small>" + esc(f[1]) + "</small></div>").join("") + "</div><h3>Компетенции</h3><div class='chips'>" + CONTENT.skills.map(s => "<span class='chip'>" + esc(s) + "</span>").join("") + "</div>";
+  } },
+  projects: { title: "Кейсы", w: 640, h: 440, render(b) {
+    const cats = ["Все", ...new Set(CONTENT.projects.map(p => p.cat))];
+    b.innerHTML = "<h2>Кейсы</h2><div class='chips'></div><div class='cards'></div>";
+    const chips = $(".chips", b), cards = $(".cards", b);
+    const show = cat => { cards.innerHTML = ""; CONTENT.projects.filter(p => cat === "Все" || p.cat === cat).forEach(p => { const c = el("div", "card", "<canvas width='420' height='220'></canvas><div><b>" + esc(p.title) + "</b><small>" + esc(p.cat) + "</small><p style='margin:6px 0 0;font-size:13px'>" + esc(p.text) + "</p></div>"); cards.append(c); thumb($("canvas", c), p.hue, false); });
+      [...chips.children].forEach(ch => ch.setAttribute("aria-pressed", ch.textContent === cat)); };
+    cats.forEach(c => { const ch = el("button", "chip", esc(c)); ch.type = "button"; ch.onclick = () => { blip(); show(c); }; chips.append(ch); });
+    show("Все");
+  } },
+  exp: { title: "Карьера", w: 500, h: 430, render(b) {
+    b.innerHTML = "<h2>Карьера</h2><ul class='tl'>" + CONTENT.experience.map(x => "<li><b>" + esc(x.where) + "</b><br>" + esc(x.what) + "</li>").join("") + "</ul>";
+  } },
+  services: { title: "Услуги", w: 560, h: 430, render(b) {
+    b.innerHTML = "<h2>Услуги</h2><div class='cards'>" + CONTENT.services.map(x => "<div class='card'><div><b>" + esc(x[0]) + "</b><p style='margin:6px 0 0;font-size:13px;color:var(--dim)'>" + esc(x[1]) + "</p></div></div>").join("") + "</div>";
+  } },
+  blog: { title: "Блог", w: 640, h: 460, render(b) {
+    const list = () => {
+      b.innerHTML = "<h2>Блог</h2><p style='color:var(--dim)'>Статьи об ИТ-стратегии, госсистемах, финтехе и корпоративном ИИ.</p><div class='posts'></div><p style='margin-top:14px'><a class='lnk' href='" + BLOG_URL + "' target='_blank' rel='noopener'>Все статьи на отдельной странице</a></p>";
+      const box = $(".posts", b);
+      if (!BLOG.length) { box.innerHTML = "<p style='color:var(--dim)'>Статей пока нет.</p>"; return; }
+      BLOG.forEach(p => { const it = el("button", "post" + (p.image ? " pic" : ""), (p.image ? "<img src='" + esc(p.thumb || p.image) + "' alt='' loading='lazy'>" : "") + "<time>" + esc(p.dateText) + "</time><b>" + esc(p.title) + "</b><span>" + esc(p.description) + "</span>"); it.type = "button"; it.onclick = () => { blip(); read(p); }; box.append(it); });
+    };
+    const read = p => {
+      b.innerHTML = "<button class='chip' type='button'>← Все статьи</button><article class='art'>" + (p.image ? "<img src='" + esc(p.image) + "' alt='" + esc(p.imageAlt || "") + "'>" : "") + "<time>" + esc(p.dateText) + "</time><h2>" + esc(p.title) + "</h2>" + p.html + "</article><p><a class='lnk' href='" + BLOG_URL + p.slug + "/' target='_blank' rel='noopener'>Открыть статью на отдельной странице</a></p>";
+      $("button", b).onclick = () => { blip(); list(); }; b.scrollTop = 0;
+    };
+    list();
+  } },
+  contact: { title: "Контакты", w: 460, h: 300, render(b) {
+    b.innerHTML = "<h2>Связаться</h2><p>Telegram: <a href='https://t.me/" + esc(CONTENT.telegram) + "' target='_blank' rel='noopener'><b>@" + esc(CONTENT.telegram) + "</b></a></p><p>Почта: <a href='mailto:" + esc(CONTENT.email) + "'><b>" + esc(CONTENT.email) + "</b></a></p>";
+  } }
+};
+
+const desktop = $("#desktop"), open = {}; let z = 10, cascade = 0;
+function focusWin(w) { w.style.zIndex = ++z; }
+function launch(id) {
+  blip();
+  if (open[id]) { focusWin(open[id]); return; }
+  const a = APPS[id], w = el("section", "win"), dw = desktop.clientWidth, dh = desktop.clientHeight;
+  w.setAttribute("aria-label", a.title); w.tabIndex = -1;
+  const W = Math.min(a.w, dw - 20), H = Math.min(a.h, dh - 10);
+  w.style.cssText = "width:" + W + "px;height:" + H + "px;left:" + Math.max(10, Math.min(dw - W - 10, 190 + cascade * 34)) + "px;top:" + Math.max(5, Math.min(dh - H - 5, 14 + cascade * 22)) + "px";
+  cascade = (cascade + 1) % 6;
+  const hd = el("header", "", "<span>" + esc(a.title) + "</span><button type='button' aria-label='Развернуть'>▢</button><button type='button' aria-label='Закрыть'>✕</button>"), body = el("div", "body");
+  w.append(hd, body); desktop.append(w); open[id] = w; focusWin(w); a.render(body, w);
+  const [bMax, bClose] = hd.querySelectorAll("button");
+  bMax.onclick = () => w.classList.toggle("max");
+  bClose.onclick = () => { w.remove(); delete open[id]; syncDock(); };
+  w.addEventListener("pointerdown", () => focusWin(w));
+  hd.addEventListener("pointerdown", e => {
+    if (MOB || e.target.closest("button") || w.classList.contains("max")) return;
+    const sc = $("#screen").getBoundingClientRect().width / OSW, x0 = e.clientX, y0 = e.clientY, l0 = w.offsetLeft, t0 = w.offsetTop;
+    hd.setPointerCapture(e.pointerId);
+    const mv = ev => { w.style.left = Math.max(-W + 80, Math.min(dw - 80, l0 + (ev.clientX - x0) / sc)) + "px"; w.style.top = Math.max(0, Math.min(dh - 36, t0 + (ev.clientY - y0) / sc)) + "px"; };
+    const up = () => { hd.removeEventListener("pointermove", mv); hd.removeEventListener("pointerup", up); };
+    hd.addEventListener("pointermove", mv); hd.addEventListener("pointerup", up);
+  });
+  syncDock();
+}
+function syncDock() { document.querySelectorAll(".dock").forEach(d => d.classList.toggle("open", !!open[d.dataset.app])); }
+for (const id in APPS) {
+  const svg = "<svg viewBox='0 0 24 24' aria-hidden='true'>" + ICON[id] + "</svg>";
+  const i = el("button", "ico", svg + "<span>" + esc(APPS[id].title) + "</span>"); i.type = "button"; i.onclick = () => launch(id); $("#icons").append(i);
+  const d = el("button", "dock", svg); d.type = "button"; d.dataset.app = id; d.setAttribute("aria-label", APPS[id].title); d.onclick = () => launch(id); $("#dock").append(d);
+}
+/* «Нейрогонка»: 3D-остров во весь экран поверх кабинета. Саму игру ведёт отдельный чат, папка gdm2009.github.io/gorchakov-site/neurogame/ */
+{
+  const NEUROGAME_URL = "/gorchakov-site/neurogame/", total = GAME_FILES.reduce((n, f) => n + f[1], 0);
+  /* Пока посетитель осматривает кабинет, самые тяжёлые файлы игры тихо скачиваются в кеш браузера. */
+  let warmed = false;
+  const warm = () => { if (warmed || location.protocol === "file:") return; warmed = true;
+    const big = GAME_FILES.filter(f => f[1] > 150000 && !/\.mp3$/.test(f[0])).sort((a, b) => b[1] - a[1]);
+    (async () => { for (const f of big) { if (document.getElementById("neurogame")) return; try { await fetch(NEUROGAME_URL + f[0], { priority: "low" }).then(r => r.arrayBuffer()); } catch (e) { return; } } })(); };
+  $("#start").addEventListener("click", () => setTimeout(warm, 4000));
+  const i = el("button", "ico", "<svg viewBox='0 0 24 24' aria-hidden='true'>" + ICON.neuro + "</svg><span>Нейрогонка</span>");
+  i.type = "button";
+  i.onclick = () => {
+    if (document.getElementById("neurogame")) return;
+    blip(); const wasSound = soundOn; setSound(false);
+    const wrap = el("div"); wrap.id = "neurogame";
+    wrap.innerHTML = "<iframe src='" + NEUROGAME_URL + "' title='Нейрогонка' allow='fullscreen; autoplay; gamepad'></iframe><button type='button' class='hbtn'>✕ Вернуться в кабинет</button>"
+      + "<div class='gload' role='status'><b>Загружается Нейрогонка</b><div class='gbar'><i></i></div><span class='gpct'>0%</span><small>Первый вход занимает до минуты, дальше будет быстрее.</small></div>";
+    const frame = $("iframe", wrap), box = $(".gload", wrap), bar = $(".gbar i", wrap), pct = $(".gpct", wrap);
+    const sizes = new Map(GAME_FILES.map(f => [f[0], f[1]]));
+    let lastCount = -1, quietSince = 0, shown = 0;
+    const timer = setInterval(() => {
+      if (!wrap.isConnected) return clearInterval(timer);
+      let done = 0, extra = 0, count = 0;
+      try {
+        const base = new URL(NEUROGAME_URL, location.href).href;
+        frame.contentWindow.performance.getEntriesByType("resource").forEach(e => { if (!e.name.startsWith(base)) return; count++;
+          const rel = e.name.slice(base.length).split("?")[0]; if (sizes.has(rel)) done += sizes.get(rel); else extra += e.encodedBodySize || 0; });
+      } catch (err) { /* страница игры ещё не открылась */ }
+      const now = Date.now(); if (count !== lastCount) { lastCount = count; quietSince = now; }
+      const all = total + extra, real = all ? (done + extra) / all : 0, quiet = now - quietSince;
+      /* между файлами шкала понемногу подрастает сама, чтобы было видно, что загрузка идёт */
+      shown = Math.max(shown, Math.min(.99, real), Math.min(real + .06, shown + .002));
+      if (real >= .98 && quiet > 2500 || count > 0 && quiet > 20000) { shown = 1; clearInterval(timer); setTimeout(() => box.remove(), 700); }
+      bar.style.width = (shown * 100).toFixed(1) + "%"; pct.textContent = Math.round(shown * 100) + "%";
+    }, 250);
+    $("button", wrap).onclick = () => { clearInterval(timer); wrap.remove(); if (wasSound) setSound(true); i.focus({ preventScroll: true }); };
+    document.body.append(wrap); frame.focus();
+  };
+  $("#icons").append(i);
+}
+$("#sleepBtn").onclick = () => { $("#sleep").classList.add("on"); tone(600, 60, .8, .06); go("room"); };
+$("#wake").onclick = () => { $("#sleep").classList.remove("on"); blip(); };
+
+/* часы: сегодняшняя дата */
+function clock() {
+  const n = new Date(), hm = n.toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit" });
+  const dt = n.toLocaleDateString("ru-RU", { day: "numeric", month: "long", year: "numeric" }).replace(" г.", "");
+  $("#osClock").textContent = hm; $("#osDate").textContent = dt; $("#wClock").textContent = hm; $("#wDate").textContent = dt;
+}
+clock(); setInterval(clock, 15000);
+for (let i = 0; i < 18; i++) { const s = el("span"); s.style.animationDelay = (-i * .37) + "s"; s.style.animationDuration = (1.2 + (i * 7 % 5) * .3) + "s"; $("#bars").append(s); }
+
+
+/* ---------- загрузка ---------- */
+if (MEDIA.intro && !reduce) { const bv = $("#bootVid"); bv.onerror = () => bv.remove(); bv.oncanplay = () => { bv.style.display = "block"; bv.play().catch(() => {}); }; bv.src = MEDIA.intro; }
+const LINES = ["AURA OS 50.2 · запуск", "стол: левитация стабильна", "проектор экрана: 3 плоскости найдены", "нейроканал: соединение установлено", "город за окном: рассвет, видимость 40 км", "готово"];
+let li = 0; (function type() { if (li < LINES.length && $("#log")) { $("#log").textContent += "> " + LINES[li++] + "\n"; setTimeout(type, reduce ? 0 : 260); } })();
+$("#start").onclick = () => { setSound(true); $("#boot").remove(); tone(200, 800, .6, .05); };
+</script>
+</body>
+</html>
