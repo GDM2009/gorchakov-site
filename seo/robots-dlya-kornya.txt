@@ -1,0 +1,78 @@
+User-agent: *
+Allow: /
+Disallow: /sasha2/_data/
+
+# Поисковые и ИИ-боты: доступ открыт
+User-agent: Yandex
+Allow: /
+Disallow: /sasha2/_data/
+
+User-agent: Googlebot
+Allow: /
+Disallow: /sasha2/_data/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /sasha2/_data/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /sasha2/_data/
+
+User-agent: GPTBot
+Allow: /
+Disallow: /sasha2/_data/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /sasha2/_data/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /sasha2/_data/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /sasha2/_data/
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /sasha2/_data/
+
+User-agent: Claude-User
+Allow: /
+Disallow: /sasha2/_data/
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /sasha2/_data/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /sasha2/_data/
+
+User-agent: Perplexity-User
+Allow: /
+Disallow: /sasha2/_data/
+
+User-agent: Applebot
+Allow: /
+Disallow: /sasha2/_data/
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /sasha2/_data/
+
+User-agent: DuckDuckBot
+Allow: /
+Disallow: /sasha2/_data/
+
+User-agent: YandexAdditional
+Allow: /
+Disallow: /sasha2/_data/
+
+User-agent: YandexAdditionalBot
+Allow: /
+Disallow: /sasha2/_data/
+
+Sitemap: https://a-nas.ru/sasha2/sitemap.xml

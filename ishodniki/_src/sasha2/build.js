@@ -22,7 +22,8 @@ const LIVE = true;
 // На почту email приходят и письма из формы обратной связи (send.php).
 const CONTACTS = { email: 'ale.gorchakov@gmail.com', phone: '', telegram: 'Alexander_Gorchakov' };
 // Коды подтверждения Яндекс Вебмастера и Google Search Console (работают при LIVE = true).
-const VERIFY = { yandex: '', google: '' };
+// bing — код из Bing Webmaster Tools (мета-тег msvalidate.01).
+const VERIFY = { yandex: '', google: '', bing: '' };
 // Номер счётчика Яндекс Метрики (пусто — счётчика нет).
 const METRIKA = '';
 const PER_PAGE = 12;      // статей на странице списка блога
@@ -115,7 +116,12 @@ for (const f of fs.readdirSync(path.join(SRC, 'static'))) fs.copyFileSync(path.j
 fs.writeFileSync(path.join(OUT, '.htaccess'), fs.readFileSync(path.join(SRC, 'htaccess.txt'), 'utf8').split('{{P}}').join(P));
 // форма обратной связи убрана по просьбе владельца 17.11.2026, send.php больше не создаётся
 // сайт в корне домена: свой robots.txt (в подпапке он не нужен, поисковики читают его только из корня)
-if (P === '') fs.writeFileSync(path.join(OUT, 'robots.txt'), 'User-agent: *\nAllow: /\nDisallow: /_data/\n\nSitemap: ' + BASE + '/sitemap.xml\n');
+// Поисковые и ИИ-боты перечислены явно: так им проще понять, что доступ открыт. Тот же список — в seo/robots-dlya-kornya.txt.
+const BOTS = ['Yandex', 'Googlebot', 'Bingbot', 'Google-Extended', 'GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-SearchBot', 'Claude-User', 'anthropic-ai', 'PerplexityBot', 'Perplexity-User', 'Applebot', 'Applebot-Extended', 'DuckDuckBot', 'YandexAdditional', 'YandexAdditionalBot'];
+const robotsTxt = (prefix) => 'User-agent: *\nAllow: /\nDisallow: ' + prefix + '/_data/\n\n# Поисковые и ИИ-боты: доступ открыт\n' + BOTS.map(b => 'User-agent: ' + b + '\nAllow: /\nDisallow: ' + prefix + '/_data/\n').join('\n') + '\nSitemap: ' + BASE + '/sitemap.xml\n';
+if (P === '') fs.writeFileSync(path.join(OUT, 'robots.txt'), robotsTxt(''));
+// сайт в подпапке: готовый robots.txt для корня домена кладётся в seo/ репозитория (его нужно положить в корень вручную)
+else { const seoDir = path.join(SRC, '..', '..', '..', 'seo'); if (fs.existsSync(seoDir)) fs.writeFileSync(path.join(seoDir, 'robots-dlya-kornya.txt'), robotsTxt(P)); }
 fs.mkdirSync(path.join(OUT, '_data'), { recursive: true });
 fs.writeFileSync(path.join(OUT, '_data', '.htaccess'), 'Require all denied\n');
 const INDEXNOW = fs.readFileSync(path.join(SRC, 'indexnow-key.txt'), 'utf8').trim();
@@ -124,11 +130,13 @@ fs.writeFileSync(path.join(OUT, INDEXNOW + '.txt'), INDEXNOW);
 // ---------- разметка для поиска ----------
 const PHOTO = P + '/assets/expert-';   // исходное фото эксперта (не стилизованное, как в кабинете)
 const personId = BASE + '/#person', siteId = BASE + '/#website';
-const sameAs = [];
+const sameAs = CONTACTS.telegram ? ['https://t.me/' + CONTACTS.telegram] : []; // сюда же добавлять профили: LinkedIn, VC.ru, Хабр, Telegram-канал
 const TEL = CONTACTS.phone.replace(/[^+\d]/g, ''), TG = CONTACTS.telegram ? 'https://t.me/' + CONTACTS.telegram : (TEL ? 'https://t.me/' + TEL : '');
 const person = { '@type': 'Person', '@id': personId, name: AUTHOR, givenName: AUTHOR.split(' ')[0], familyName: AUTHOR.split(' ')[1], jobTitle: OCCUPATION, description: ROLE + '. ' + CONTENT.about.join(' '), url: BASE + '/', image: SITE + PHOTO + '640.jpg', knowsAbout: TOPICS, knowsLanguage: 'ru', nationality: { '@type': 'Country', name: 'Россия' },
   ...(sameAs.length ? { sameAs } : {}), ...(CONTACTS.email ? { email: 'mailto:' + CONTACTS.email } : {}), ...(CONTACTS.phone ? { telephone: TEL, contactPoint: { '@type': 'ContactPoint', contactType: 'customer service', telephone: TEL, email: CONTACTS.email || undefined, availableLanguage: 'Russian', areaServed: 'RU' } } : {}) };
 const website = { '@type': 'WebSite', '@id': siteId, name: AUTHOR + ' — цифровая трансформация госсектора и финансов', alternateName: AUTHOR, url: BASE + '/', inLanguage: 'ru', publisher: { '@id': personId }, about: { '@id': personId } };
+// Частная практика эксперта как организация-услуга: помогает Яндексу, Google и ИИ-ассистентам понять, что здесь можно заказать консультацию.
+const proService = { '@type': 'ProfessionalService', '@id': BASE + '/#service', name: AUTHOR + ' — консалтинг по ИТ-стратегии и цифровой трансформации', url: BASE + '/', image: SITE + PHOTO + '640.jpg', description: ROLE + '. ' + CONTENT.about[0], founder: { '@id': personId }, employee: { '@id': personId }, areaServed: { '@type': 'Country', name: 'Россия' }, availableLanguage: 'Russian', knowsAbout: TOPICS, ...(CONTACTS.email ? { email: CONTACTS.email } : {}), ...(sameAs.length ? { sameAs } : {}) };
 const crumbsLd = items => ({ '@type': 'BreadcrumbList', itemListElement: items.map((it, i) => ({ '@type': 'ListItem', position: i + 1, name: it[0], item: abs(it[1]) })) });
 const crumbNav = items => `<nav class="crumbs" aria-label="Хлебные крошки"><ol>${items.map((it, i) => i < items.length - 1 ? `<li><a href="${it[1]}">${esc(it[0])}</a></li>` : `<li aria-current="page">${esc(it[0])}</li>`).join('')}</ol></nav>`;
 const HOME = ['Главная', P + '/'];
@@ -148,7 +156,7 @@ function page({ file, title, description, canonOld, body, ld, type = 'website', 
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
 <meta name="author" content="${esc(AUTHOR)}">
-<meta name="robots" content="${open ? 'index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1' : 'noindex,follow'}">${LIVE && VERIFY.yandex ? `\n<meta name="yandex-verification" content="${esc(VERIFY.yandex)}">` : ''}${LIVE && VERIFY.google ? `\n<meta name="google-site-verification" content="${esc(VERIFY.google)}">` : ''}
+<meta name="robots" content="${open ? 'index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1' : 'noindex,follow'}">${LIVE && VERIFY.yandex ? `\n<meta name="yandex-verification" content="${esc(VERIFY.yandex)}">` : ''}${LIVE && VERIFY.google ? `\n<meta name="google-site-verification" content="${esc(VERIFY.google)}">` : ''}${LIVE && VERIFY.bing ? `\n<meta name="msvalidate.01" content="${esc(VERIFY.bing)}">` : ''}
 ${canonical ? `<link rel="canonical" href="${canonical}">` : ''}
 <link rel="icon" href="${P}/assets/favicon.svg" type="image/svg+xml"><link rel="icon" href="${P}/assets/favicon-120.png" sizes="120x120" type="image/png"><link rel="apple-touch-icon" href="${P}/assets/favicon-180.png">
 <meta name="theme-color" content="#16233f">
@@ -229,7 +237,7 @@ page({ file: 'index.html', nav: 'home', type: 'profile', lastmod, canonOld: OLD 
   extraHead: `<meta property="profile:first_name" content="${AUTHOR.split(' ')[0]}"><meta property="profile:last_name" content="${AUTHOR.split(' ')[1]}"><link rel="preload" as="image" href="${P}/assets/g/${SLIDES[0].name}-1600.webp" media="(min-width: 901px)"><link rel="preload" as="image" href="${P}/assets/g/${SLIDES[0].name}-900.webp" media="(max-width: 900px)">`,
   ld: { '@context': 'https://schema.org', '@graph': [
     { '@type': 'ProfilePage', '@id': BASE + '/', url: BASE + '/', name: AUTHOR, inLanguage: 'ru', mainEntity: { '@id': personId }, isPartOf: { '@id': siteId }, dateModified: lastmod },
-    { ...person, hasOccupation: { '@type': 'Occupation', name: OCCUPATION, skills: CONTENT.skills.join(', ') }, makesOffer: offers }, website] },
+    { ...person, hasOccupation: { '@type': 'Occupation', name: OCCUPATION, skills: CONTENT.skills.join(', ') }, makesOffer: offers, worksFor: { '@id': BASE + '/#service' } }, { ...proService, hasOfferCatalog: { '@type': 'OfferCatalog', name: 'Услуги', itemListElement: offers } }, website] },
   body: `<section class="hero hero-full hero-slider${SLIDES[0].dark ? ' hero-dark' : ''}" id="hero" aria-roledescription="карусель" aria-label="Первый экран">
 <div class="hero-bgs" aria-hidden="true">${SLIDES.map((v, i) => `<div class="hero-bg${i ? '' : ' on'}${v.dark ? ' dk' : ''}" ${i ? 'data-pic' : 'style'}="--pic:url(${P}/assets/g/${v.name}-1600.webp);--pic-m:url(${P}/assets/g/${v.name}-900.webp)"></div>`).join('')}</div>
 <div class="wrap hero-in"><div class="hero-txt"><p class="eyebrow">${esc(CONTENT.role)}</p>
@@ -278,7 +286,7 @@ ${contactSection('')}` }); }
     description: 'Услуги Александра Горчакова: диагностика ИТ, ИТ-стратегия, fractional CIO, своя разработка, корпоративный ИИ, интеграция с госсистемами, due diligence.',
     ld: { '@context': 'https://schema.org', '@graph': [
       { '@type': 'CollectionPage', '@id': BASE + '/uslugi/', url: BASE + '/uslugi/', name: 'Услуги', inLanguage: 'ru', isPartOf: { '@id': siteId }, mainEntity: { '@type': 'ItemList', itemListElement: SERVICES.map((s, i) => ({ '@type': 'ListItem', position: i + 1, name: s.h1, url: abs(s.url) })) } },
-      { ...person, makesOffer: offers }, website, crumbsLd(trail)] },
+      { ...person, makesOffer: offers }, { ...proService, hasOfferCatalog: { '@type': 'OfferCatalog', name: 'Услуги', itemListElement: offers } }, website, crumbsLd(trail)] },
     // вводная фраза та же, что на странице услуг действующего сайта
     body: `<div class="wrap page-top">${crumbNav(trail)}<h1>Услуги: ИТ-стратегия, цифровая трансформация, корпоративный ИИ</h1><p class="lead">Восемь форматов работы: от двухнедельной диагностики до сопровождения руководителя. Все опираются на 20+ лет проектов для государства и финансов.</p></div>
 <section class="sec sec-tight"><div class="wrap"><div class="grid g2 svc-list">${SERVICES.map(s => `<a class="card card-lg" href="${s.url}"><h2>${esc(s.h1)}</h2><p>${esc(s.lead)}</p>${arrow}</a>`).join('')}</div></div></section>

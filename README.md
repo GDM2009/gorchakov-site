@@ -50,6 +50,7 @@ node tools/build.js https://example.ru /expert    # сайт в подпапке
 ```
 README.md                 этот файл
 ПРОЧТИ.md                 исходная инструкция автора по переносу на хостинг
+seo/                      robots.txt и llms.txt для корня домена a-nas.ru (см. seo/README.md)
 package.json              команды npm run dev / build / serve
 tools/build.js            сборка одной командой (оба сборщика по очереди)
 tools/serve.js            локальный сервер для просмотра dev/
