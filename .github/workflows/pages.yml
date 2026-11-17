@@ -1,7 +1,7 @@
 name: pages
 # Черновой адрес сайта на GitHub Pages: https://gdm2009.github.io/gorchakov-site/
 # Пересобирается сам после каждой правки в main и выкладывается в ветку gh-pages (её GitHub Pages и показывает).
-# Закрыт от поисковиков (noindex), чтобы не спорить с основным сайтом. Форма обратной связи здесь не работает: Pages не выполняет PHP.
+# Закрыт от поисковиков (noindex), чтобы не спорить с основным сайтом. Pages не выполняет PHP, поэтому форма здесь отправляется через formsubmit.co.
 on:
   push:
     branches: [main]
@@ -19,6 +19,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: '22'}
       - name: Сборка под адрес GitHub Pages
+        env: {FORM_SERVICE: formsubmit}
         run: node tools/build.js "https://${GITHUB_REPOSITORY_OWNER,,}.github.io" "/${GITHUB_REPOSITORY#*/}"
       - name: Черновик закрыть от поиска, убрать серверные файлы
         run: |
