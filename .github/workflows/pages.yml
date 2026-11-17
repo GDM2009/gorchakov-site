@@ -1,0 +1,40 @@
+name: pages
+# Черновой адрес сайта на GitHub Pages: https://gdm2009.github.io/gorchakov-site/
+# Пересобирается сам после каждой правки в main. Закрыт от поисковиков (noindex), чтобы не спорить с основным сайтом.
+# Форма обратной связи здесь не работает: GitHub Pages не выполняет PHP.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Сборка под адрес GitHub Pages
+        run: node tools/build.js "https://${GITHUB_REPOSITORY_OWNER,,}.github.io" "/${GITHUB_REPOSITORY#*/}"
+      - name: Черновик закрыть от поиска, убрать серверные файлы
+        run: |
+          find novyi-sait -name '*.html' -exec sed -i 's|<head>|<head><meta name="robots" content="noindex, nofollow">|' {} +
+          rm -rf novyi-sait/send.php novyi-sait/_data novyi-sait/.htaccess novyi-sait/robots.txt
+          touch novyi-sait/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with: {path: novyi-sait}
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
