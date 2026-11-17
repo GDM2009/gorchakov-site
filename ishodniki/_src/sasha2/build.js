@@ -148,7 +148,6 @@ function page({ file, title, description, canonOld, body, ld, type = 'website', 
 <meta name="robots" content="${open ? 'index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1' : 'noindex,follow'}">${LIVE && VERIFY.yandex ? `\n<meta name="yandex-verification" content="${esc(VERIFY.yandex)}">` : ''}${LIVE && VERIFY.google ? `\n<meta name="google-site-verification" content="${esc(VERIFY.google)}">` : ''}
 ${canonical ? `<link rel="canonical" href="${canonical}">` : ''}
 <link rel="icon" href="${P}/assets/favicon.svg" type="image/svg+xml"><link rel="icon" href="${P}/assets/favicon-120.png" sizes="120x120" type="image/png"><link rel="apple-touch-icon" href="${P}/assets/favicon-180.png">
-<link rel="alternate" type="application/rss+xml" title="Блог Александра Горчакова" href="${BASE}/blog/rss.xml">
 <meta name="theme-color" content="#16233f">
 <meta property="og:type" content="${type}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${url}"><meta property="og:site_name" content="${esc(AUTHOR)}"><meta property="og:locale" content="ru_RU">
@@ -171,7 +170,7 @@ ${body}
 <footer class="site-foot"><div class="wrap foot-in">
 <div class="foot-who"><span class="mono" aria-hidden="true">АГ</span><p><b>${esc(AUTHOR)}</b><br>${esc(ROLE)}${TEL ? `<br><a class="foot-c" href="tel:${TEL}">${esc(CONTACTS.phone)}</a>` : ''}${CONTACTS.email ? `<br><a class="foot-c" href="mailto:${esc(CONTACTS.email)}">${esc(CONTACTS.email)}</a>` : ''}</p></div>
 <nav class="foot-nav" aria-label="Разделы сайта"><a href="${P}/expert/">Об эксперте</a><a href="${P}/uslugi/">Услуги</a><a href="${P}/keisy/">Кейсы</a><a href="${P}/blog/">Блог</a><a href="${P}/kontakty/">Контакты</a></nav>
-<nav class="foot-nav" aria-label="Дополнительно"><a target="_blank" rel="noopener" href="${CABINET}">3D-кабинет</a><a target="_blank" rel="noopener" href="${GAME}">Игра «Нейрогонка»</a><a href="${P}/blog/rss.xml">RSS блога</a><a href="${P}/sitemap.xml">Карта сайта</a></nav>
+<nav class="foot-nav" aria-label="Дополнительно"><a target="_blank" rel="noopener" href="${CABINET}">3D-кабинет</a><a target="_blank" rel="noopener" href="${GAME}">Игра «Нейрогонка»</a></nav>
 </div><div class="wrap foot-copy">© ${new Date().getFullYear()} ${esc(AUTHOR)}</div></footer>
 <script>(function(){var b=document.querySelector('.burger'),n=document.getElementById('nav');if(b)b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o)});
 [].forEach.call(document.querySelectorAll('form.cform'),function(f){var s=f.querySelector('.cform-st'),bt=f.querySelector('button');f.page.value=location.pathname;f.addEventListener('submit',function(e){e.preventDefault();bt.disabled=true;s.className='cform-st';s.textContent='Отправляем…';
@@ -210,7 +209,7 @@ const contactSection = (topic, title) => `<section class="band navy contact-sec"
 // короткий блок связи для страниц блога
 const ctaBand = `<section class="band cta" aria-labelledby="cta-h"><div class="wrap cta-in"><h2 id="cta-h">Обсудим вашу задачу?</h2>${contactBtns('')}<a class="btn" href="${P}/kontakty/#form">Написать ${arrow}</a></div></section>`;
 const authorBox = lead => `<aside class="author"><img src="${PHOTO}160.webp" alt="${esc(AUTHOR)}" width="72" height="90" loading="lazy" decoding="async"><div><b>${lead}</b><p>${esc(OCCUPATION)}. ${esc(CONTENT.about[0])}</p><a href="${P}/expert/">Об эксперте</a></div></aside>`;
-const portrait = (sizes, prio) => `<img src="${PHOTO}640.webp" srcset="${PHOTO}320.webp 320w, ${PHOTO}640.webp 640w" sizes="${sizes}" alt="${esc(AUTHOR)}, ${esc(OCCUPATION.charAt(0).toLowerCase() + OCCUPATION.slice(1))}" width="640" height="800"${prio ? ' fetchpriority="high"' : ' loading="lazy"'}>`;
+const portrait = (sizes, prio, ph = PHOTO) => `<img src="${ph}640.webp" srcset="${ph}320.webp 320w, ${ph}640.webp 640w" sizes="${sizes}" alt="${esc(AUTHOR)}, ${esc(OCCUPATION.charAt(0).toLowerCase() + OCCUPATION.slice(1))}" width="640" height="800"${prio ? ' fetchpriority="high"' : ' loading="lazy"'}>`;
 const factsList = `<ul class="facts">${CONTENT.facts.map(f => `<li><b>${esc(f[0])}</b><span>${esc(f[1])}</span></li>`).join('')}</ul>`;
 // теги экспертизы: две строки по нижнему краю картиночной части баннера
 const heroSkills = `<ul class="hero-skills" aria-label="Ключевая экспертиза">${CONTENT.skills.map((s, i) => `${i === Math.ceil(CONTENT.skills.length / 2) ? '<li class="br" aria-hidden="true"></li>' : ''}<li>${esc(s)}</li>`).join('')}</ul>`;
@@ -261,7 +260,7 @@ ${contactSection('')}` });
       { ...person, hasOccupation: { '@type': 'Occupation', name: OCCUPATION, skills: CONTENT.skills.join(', ') }, makesOffer: offers }, website, crumbsLd(trail)] },
     body: `<div class="wrap page-top">${crumbNav(trail)}</div>
 <section class="wrap about"><div class="about-txt"><h1>${esc(AUTHOR)}</h1><p class="hero-role">${esc(OCCUPATION)}</p>${CONTENT.about.map(a => `<p class="lead">${esc(a)}</p>`).join('')}<div class="btns"><a class="btn" href="#form">Связаться ${arrow}</a><a class="btn btn-ghost" target="_blank" rel="noopener" href="${CABINET}">3D-кабинет</a></div></div>
-<figure class="about-pic">${portrait('(max-width: 900px) 50vw, 300px', true)}</figure></section>
+<figure class="about-pic">${portrait('(max-width: 900px) 50vw, 300px', true, PHOTO + 'about-')}</figure></section>
 <section class="wrap facts-row" aria-label="Опыт в цифрах">${factsList}</section>
 <section class="band mist" aria-labelledby="h-komp"><div class="wrap split">${h2('h-komp', 'Компетенции')}${skillsList}</div></section>
 <section class="band navy" aria-labelledby="h-kar"><div class="wrap split">${h2('h-kar', 'Карьера')}${careerList()}</div></section>
@@ -417,11 +416,7 @@ page({ file: '404.html', index: false, title: 'Страница не найде�
 const smHead = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n';
 fs.writeFileSync(path.join(OUT, 'sitemap.xml'), smHead + pages.map(u => `<url><loc>${u.url}</loc>${u.lastmod ? `<lastmod>${u.lastmod}</lastmod>` : ''}${u.image ? `<image:image><image:loc>${esc(u.image)}</image:loc></image:image>` : ''}</url>`).join('\n') + '\n</urlset>\n');
 const cdata = s => '<![CDATA[' + s.replace(/]]>/g, ']]]]><![CDATA[>') + ']]>';
-fs.writeFileSync(path.join(OUT, 'blog', 'rss.xml'), `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><title>Блог Александра Горчакова</title><link>${BASE}/blog/</link><atom:link href="${BASE}/blog/rss.xml" rel="self" type="application/rss+xml"/><description>${esc(blogDesc)}</description><language>ru</language>${posts[0] ? `<lastBuildDate>${new Date(posts[0].date + 'T09:00:00+03:00').toUTCString()}</lastBuildDate>` : ''}
-${posts.map(p => `<item><title>${esc(p.title)}</title><link>${abs(p.url)}</link><guid isPermaLink="true">${abs(p.url)}</guid><pubDate>${new Date(p.date + 'T09:00:00+03:00').toUTCString()}</pubDate><dc:creator>${esc(AUTHOR)}</dc:creator>${p.tags.map(t => `<category>${esc(t)}</category>`).join('')}<description>${esc(p.description)}</description><content:encoded>${cdata(p.html)}</content:encoded>${p.image ? `<enclosure url="${esc(abs(pic(p, 1200, 'jpg')))}" type="image/jpeg" length="${fs.existsSync(path.join(IMG_DIR, p.slug + '-1200.jpg')) ? fs.statSync(path.join(IMG_DIR, p.slug + '-1200.jpg')).size : 0}"/>` : ''}</item>`).join('\n')}
-</channel></rss>
-`);
+// RSS убран по просьбе владельца 17.11.2026
 const llmsHead = `# ${AUTHOR}\n\n> ${OCCUPATION}. ${ROLE}. ${CONTENT.about.join(' ')}\n\nТемы экспертизы: ${TOPICS.join(', ')}.\n\nОпыт в цифрах: ${CONTENT.facts.map(f => f[0] + ' ' + f[1]).join('; ')}.\n`;
 fs.writeFileSync(path.join(OUT, 'llms.txt'), `${llmsHead}
 ## Об эксперте
@@ -445,8 +440,6 @@ ${posts.map(p => `- [${p.title}](${abs(p.url)}): ${p.description}`).join('\n')}
 
 - [Полные тексты сайта одним файлом](${BASE}/llms-full.txt)
 - [Все статьи](${BASE}/blog/)
-- [RSS](${BASE}/blog/rss.xml)
-- [Карта сайта](${BASE}/sitemap.xml)
 `);
 fs.writeFileSync(path.join(OUT, 'llms-full.txt'), `${llmsHead}
 ## Карьера

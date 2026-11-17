@@ -452,7 +452,6 @@ const ICON = {
   services: '<path d="M4 7h16M4 12h16M4 17h10"/><circle cx="19" cy="17" r="2"/>',
   blog: '<path d="M5 3h11l3 3v15H5z"/><path d="M8 9h8M8 13h8M8 17h5"/>',
   contact: '<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 8l9 6 9-6"/>',
-  game: '<path d="M4 6h10v6h6v6H10v-6H4z"/><circle cx="18" cy="6" r="1.5"/>',
   neuro: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/><path d="M3.3 10.5l6.3 1M20.7 10.5l-6.3 1M12 14.5V21"/>'
 };
 function thumb(cv, hue, animated) {
@@ -500,26 +499,6 @@ const APPS = {
     $("#cform", b).addEventListener("submit", e => { e.preventDefault(); const txt = "От: " + $("#cname", b).value + "\n\n" + $("#cmsg", b).value;
       const out = $("#cout", b); const fail = () => { out.textContent = "Не удалось скопировать. Выделите текст вручную."; };
       try { navigator.clipboard.writeText(txt).then(() => { out.textContent = "Скопировано. Вставьте текст в письмо."; }, fail); } catch (err) { fail(); } });
-  } },
-  game: { title: "Нейрозмейка", w: 520, h: 440, render(b, win) {
-    b.innerHTML = "<p style='margin:0 0 8px;color:var(--dim)'>Стрелки, WASD или провести пальцем. Счёт: <b id='score'>0</b></p><canvas id='gameC' width='480' height='320' tabindex='0' aria-label='Игровое поле'></canvas>";
-    const cv = $("#gameC", b), g = cv.getContext("2d"), N = 20; let s, d, nd, food, alive, timer;
-    const put = () => { do food = [Math.random() * 24 | 0, Math.random() * 16 | 0]; while (s.some(q => q[0] === food[0] && q[1] === food[1])); };
-    const reset = () => { s = [[8, 8], [7, 8], [6, 8]]; d = nd = [1, 0]; alive = true; put(); $("#score", b).textContent = 0; };
-    const draw = () => { g.fillStyle = "#0a0e13"; g.fillRect(0, 0, 480, 320); g.fillStyle = "#ff9a66"; g.fillRect(food[0] * N + 4, food[1] * N + 4, N - 8, N - 8);
-      s.forEach((q, i) => { g.fillStyle = i ? "rgba(166,245,227,.75)" : "#e8f0f2"; g.fillRect(q[0] * N + 1, q[1] * N + 1, N - 2, N - 2); });
-      if (!alive) { g.fillStyle = "rgba(10,14,19,.8)"; g.fillRect(0, 0, 480, 320); g.fillStyle = "#e8f0f2"; g.font = "16px sans-serif"; g.textAlign = "center"; g.fillText("Конец. Нажмите Enter или на поле", 240, 165); } };
-    const step = () => { if (!cv.isConnected) return clearInterval(timer); if (!alive) return; d = nd; const h = [(s[0][0] + d[0] + 24) % 24, (s[0][1] + d[1] + 16) % 16];
-      if (s.some(q => q[0] === h[0] && q[1] === h[1])) { alive = false; tone(300, 80, .4, .06); return draw(); }
-      s.unshift(h); if (h[0] === food[0] && h[1] === food[1]) { put(); blip(); $("#score", b).textContent = s.length - 3; } else s.pop(); draw(); };
-    const K = { ArrowUp: [0, -1], w: [0, -1], ArrowDown: [0, 1], s: [0, 1], ArrowLeft: [-1, 0], a: [-1, 0], ArrowRight: [1, 0], d: [1, 0] };
-    win.addEventListener("keydown", e => { const v = K[e.key]; if (v) { e.preventDefault(); if (v[0] !== -d[0] || v[1] !== -d[1]) nd = v; } else if (e.key === "Enter" && !alive) { reset(); draw(); } });
-    cv.addEventListener("click", () => { cv.focus(); if (!alive) { reset(); draw(); } });
-    let sx = 0, sy = 0; /* управление пальцем: провести в нужную сторону */
-    cv.addEventListener("pointerdown", e => { sx = e.clientX; sy = e.clientY; });
-    cv.addEventListener("pointerup", e => { const dx = e.clientX - sx, dy = e.clientY - sy; if (Math.abs(dx) + Math.abs(dy) < 24) return;
-      const v = Math.abs(dx) > Math.abs(dy) ? [Math.sign(dx), 0] : [0, Math.sign(dy)]; if (v[0] !== -d[0] || v[1] !== -d[1]) nd = v; });
-    reset(); draw(); timer = setInterval(step, 130); setTimeout(() => cv.focus({ preventScroll: true }), 0);
   } }
 };
 
