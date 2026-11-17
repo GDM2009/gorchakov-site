@@ -15,9 +15,9 @@ const OUT = env.OUT_DIR ? path.resolve(env.OUT_DIR) : path.join(ROOT, 'sasha2');
 // LIVE = false: страницы закрыты от поиска (noindex) и указывают canonical на /sasha/.
 // При переезде на другой адрес поменять SITE и P ниже, IndexNow-ключ и строку Sitemap в robots.txt.
 const LIVE = true;
-// Контакты дал владелец 15.11.2026. telegram: имя пользователя без @; если пусто, кнопка Telegram открывает чат по номеру телефона.
+// Контакты дал владелец 15.11.2026. telegram: имя пользователя без @; если пусто, кнопка Telegram открывает чат по номеру телефона. Telegram @Alexander_Gorchakov — 17.11.2026.
 // На почту email приходят и письма из формы обратной связи (send.php).
-const CONTACTS = { email: 'ale.gorchakov@gmail.com', phone: '+7 (985) 181-00-00', telegram: '' };
+const CONTACTS = { email: 'ale.gorchakov@gmail.com', phone: '+7 (985) 181-00-00', telegram: 'Alexander_Gorchakov' };
 // Коды подтверждения Яндекс Вебмастера и Google Search Console (работают при LIVE = true).
 const VERIFY = { yandex: '', google: '' };
 // Номер счётчика Яндекс Метрики (пусто — счётчика нет).
