@@ -10,7 +10,10 @@ const [url, sub] = process.argv.slice(2);
 const local = !url;
 const out = path.join(ROOT, local ? 'dev' : 'novyi-sait');
 fs.rmSync(out, { recursive: true, force: true });
+// сборщик кабинета читает свои аргументы из process.argv (необязательные пути для копий), поэтому наши аргументы ему не передаём
+const argv = process.argv; process.argv = argv.slice(0, 2);
 require(path.join(ROOT, 'ishodniki', '_src', 'sasha', 'build.js'));
+process.argv = argv;
 process.env.SITE_URL = url || 'http://localhost:8080';
 process.env.SITE_PATH = sub || '';
 process.env.OUT_DIR = out;
