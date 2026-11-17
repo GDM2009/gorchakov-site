@@ -7,7 +7,7 @@
 ## Как посмотреть
 
 - **Опубликованный сайт:** https://a-nas.ru/sasha2/
-- **Черновик на GitHub Pages:** https://gdm2009.github.io/gorchakov-site/ — пересобирается сам после каждой правки в `main` (`.github/workflows/pages.yml`), закрыт от поисковиков, форма там не работает.
+- **Черновик на GitHub Pages:** https://gdm2009.github.io/gorchakov-site/ — пересобирается сам после каждой правки в `main` (`.github/workflows/pages.yml`, результат в ветке `gh-pages`), закрыт от поисковиков, форма там не работает.
 - **На своём компьютере (Windows):** установить Node.js с https://nodejs.org, скачать репозиторий (Code → Download ZIP), распаковать и дважды щёлкнуть `smotret.bat`. Откроется http://localhost:8080. Остановить: закрыть чёрное окно.
 
 ## Быстрый старт

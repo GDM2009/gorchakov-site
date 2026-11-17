@@ -1,15 +1,13 @@
 name: pages
 # Черновой адрес сайта на GitHub Pages: https://gdm2009.github.io/gorchakov-site/
-# Пересобирается сам после каждой правки в main. Закрыт от поисковиков (noindex), чтобы не спорить с основным сайтом.
-# Форма обратной связи здесь не работает: GitHub Pages не выполняет PHP.
+# Пересобирается сам после каждой правки в main и выкладывается в ветку gh-pages (её GitHub Pages и показывает).
+# Закрыт от поисковиков (noindex), чтобы не спорить с основным сайтом. Форма обратной связи здесь не работает: Pages не выполняет PHP.
 on:
   push:
     branches: [main]
   workflow_dispatch:
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 concurrency:
   group: pages
   cancel-in-progress: true
@@ -27,14 +25,12 @@ jobs:
           find novyi-sait -name '*.html' -exec sed -i 's|<head>|<head><meta name="robots" content="noindex, nofollow">|' {} +
           rm -rf novyi-sait/send.php novyi-sait/_data novyi-sait/.htaccess novyi-sait/robots.txt
           touch novyi-sait/.nojekyll
-      - uses: actions/upload-pages-artifact@v3
-        with: {path: novyi-sait}
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Выложить в ветку gh-pages
+        run: |
+          cd novyi-sait
+          git init -q -b gh-pages
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Черновик сайта из ${GITHUB_SHA::7}"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" gh-pages
