@@ -5243,7 +5243,7 @@ https://github.com/browserify/crypto-browserify`)},e.constants={DH_CHECK_P_NOT_S
 
 ╔═ Контакты ═══════════════╗
 ║ Почта   ⇒ ale.gorchakov@gmail.com
-║ Телефон ⇒ +7 (985) 181-00-00
+║ Telegram ⇒ @Alexander_Gorchakov
 ╚═══════════════════════════╝
 
 ╔═ Отладка ═══════════════╗
